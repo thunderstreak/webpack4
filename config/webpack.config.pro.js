@@ -82,6 +82,7 @@ module.exports = {
             chunkFilename: "css/[name].[chunkhash].css",
         }),
 
+        // autoprefixer 是 postcss-loader 的 插件，需要在这里进行 autoprefixer 插件的配置
         new webpack.LoaderOptionsPlugin({
             options: {
                 context: '/',
