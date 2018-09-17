@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import Home from './Home/'
+
+import routers from '@SRC/routers';
 import '../styles/main.less'
 
 export default class App extends React.Component {
@@ -12,7 +13,8 @@ export default class App extends React.Component {
         return (
             <Router>
                 <Switch>
-                    <Route exact path="/" component={Home}/>
+                    <Route exact path="/" component={routers.Home}/>
+                    <Route exact path="/Mouse" component={routers.Mouse}/>
                 </Switch>
             </Router>
         )

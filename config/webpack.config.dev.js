@@ -7,6 +7,7 @@ const root = path.resolve(__dirname, '../');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');//优化 webpack 错误输出信息
 
 module.exports = {
+    devtool : 'cheap-module-source-map', // 增强浏览器调试
     context : path.resolve(root, 'src'),
     entry:{
         app:[
