@@ -1,13 +1,31 @@
 {
     "presets": [
         ["es2015", {
-            "modules": false
+            "modules": false,// 关闭 babel 对 es module 的处理
+            "targets": { // 目标运行环境
+                "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+            }
         }],
         "stage-2",
         "react"
     ],
     "plugins": [
         "react-hot-loader/babel",
+        "transform-runtime",
         "syntax-dynamic-import" // 异步加载语法编译插件
-    ]
+    ],
+    "comments": false,//删除注释
+    "env": {
+        // test 是提前设置的环境变量，如果没有设置BABEL_ENV则使用NODE_ENV，如果都没有设置默认就是developmen
+        "test": {
+            "presets": [
+                "env",
+                "stage-2"
+            ],
+            // instanbul是一个用来测试转码后代码的工具
+            "plugins": [
+                "istanbul"
+            ]
+        }
+    }
 }

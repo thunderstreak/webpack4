@@ -10,7 +10,7 @@ const BundleAnalyzer = require('webpack-bundle-analyzer');//拆分 js 代码
 module.exports = {
     entry: {
         app     : path.resolve(root, 'src/index.js'),
-        // vendors : config.vendors
+        vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
     },
     output: {
         path            : path.resolve(root, 'dist'),
@@ -56,10 +56,9 @@ module.exports = {
                     name: 'commons-async',
                     /**
                      * minSize 默认为 30000
-                     * 想要使代码拆分真的按照我们的设置来
-                     * 需要减小 minSize
+                     * 想要使代码拆分真的按照我们的设置来需要减小 minSize
                      */
-                    minSize: 0,
+                    minSize: 30000,
                     // 至少为两个 chunks 的公用代码
                     minChunks: 2
                 }

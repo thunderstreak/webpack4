@@ -26,7 +26,7 @@ module.exports = {
                 test: /\.css|less$/,
                 use: [
                     'style-loader',
-                    { loader: 'css-loader', options: { importLoaders: 1 } },
+                    { loader: 'css-loader?modules', options: { importLoaders: 1 } },//css modules可以让css文件以js导入的方式引用
                     'postcss-loader',
                     'less-loader'
                 ]
@@ -48,7 +48,7 @@ module.exports = {
         compress            : true,//启用gzip 压缩
         noInfo              : true,//「启动时和每次保存之后，那些显示的 webpack 包(bundle)信息」的消息将被隐藏。错误和警告仍然会显示。
 
-        progress            : true,// 显示 webpack 构建进度
+        progress            : false,// 显示 webpack 构建进度
 
         quiet               : true,//优化 webpack 输出信息跟 friendly-errors-webpack-plugin 插件配合
 

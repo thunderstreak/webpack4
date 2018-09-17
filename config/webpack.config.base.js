@@ -9,8 +9,8 @@ const env = process.env.NODE_ENV;
 const htmlWebpackPluginProductionConfig = {
     removeComments: true, //移除HTML中的注释
     collapseWhitespace: true, //删除空白符与换行符
-    minifyJS: true,
-    minifyCSS: true,
+    minifyJS: true,// 压缩页面中的css
+    minifyCSS: true,// 压缩页面中的js
 };
 
 module.exports = {
@@ -19,12 +19,13 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /^node_modules/,
-                use: 'babel-loader'
+                exclude: /node_modules/,
+                use: 'babel-loader',
+                // query: {compact: false}
             },
             {
                 test: /\.json$/,
-                exclude: /^node_modules/,
+                exclude: /node_modules/,
                 type: "javascript/auto"
             },
             {
@@ -45,13 +46,13 @@ module.exports = {
     resolve: {
         //路径优化
         alias:{
-            'SRC'         :path.resolve(root,'src/'),
-            'COMPONENTS'  :path.resolve(root,'src/components'),
-            'JAVASCRIPTS' :path.resolve(root,'src/javascripts'),
-            'STYLES'      :path.resolve(root,'src/styles'),
-            'IMAGES'      :path.resolve(root,'src/images'),
-            'STORES'      :path.resolve(root,'src/stores'),
-            'TOOLS'       :path.resolve(root,'src/tools')
+            '@SRC'         :path.resolve(root,'src/'),
+            '@COMPONENTS'  :path.resolve(root,'src/components'),
+            '@JAVASCRIPTS' :path.resolve(root,'src/javascripts'),
+            '@STYLES'      :path.resolve(root,'src/styles'),
+            '@IMAGES'      :path.resolve(root,'src/images'),
+            '@STORES'      :path.resolve(root,'src/stores'),
+            '@TOOLS'       :path.resolve(root,'src/tools')
         },
         extensions  : ['.js', '.jsx', '.json'],//自动扩展文件后缀名
         // modules     : [ 'node_modules' ],
