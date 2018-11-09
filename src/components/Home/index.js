@@ -14,6 +14,7 @@ export default class Home extends Component{
             <ul>
                 <li style={{color:'blue'}}><Link to="/">{this.state.name}</Link></li>
                 <li><Link to="/Mouse">Mouse</Link></li>
+                <li><Link to="/Bmap">Bmap</Link></li>
             </ul>
         )
     }

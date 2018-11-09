@@ -15,6 +15,7 @@ export default class App extends React.Component {
                 <Switch>
                     <Route exact path="/" component={routers.Home}/>
                     <Route exact path="/Mouse" component={routers.Mouse}/>
+                    <Route exact path="/Bmap" component={routers.Bmap}/>
                 </Switch>
             </Router>
         )

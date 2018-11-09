@@ -26,7 +26,8 @@ module.exports = {
             {
                 test: /\.json$/,
                 exclude: /node_modules/,
-                type: "javascript/auto"
+                type: "javascript/auto",
+                loader: "json-loader"
             },
             {
                 test: /\.(svg|png|jpe?g|gif|mp4|webm)(\?\S*)?$/,
@@ -42,6 +43,12 @@ module.exports = {
             }
         ]
     },
+
+    externals: {
+        jquery  : 'jQuery',
+        BMap    : 'BMap',
+    },
+
     //入口文件配置解析类型
     resolve: {
         //路径优化
@@ -54,7 +61,7 @@ module.exports = {
             '@STORES'      :path.resolve(root,'src/stores'),
             '@TOOLS'       :path.resolve(root,'src/tools')
         },
-        extensions  : ['.js', '.jsx', '.json'],//自动扩展文件后缀名
+        extensions  : ['.js', '.jsx', '.json', 'less'],//自动扩展文件后缀名
         // modules     : [ 'node_modules' ],
     },
     plugins: [

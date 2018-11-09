@@ -2,7 +2,7 @@ import React from 'react';
 import Loadable from 'react-loadable';
 const Loading = () => <div>Loading</div>;
 
-const routerRender = {
+export default {
     Home:Loadable({
         loader  :() => import('@COMPONENTS/Home'),
         loading :Loading
@@ -11,6 +11,9 @@ const routerRender = {
         loader  :() => import('@COMPONENTS/Mouse/MouseTracker'),
         loading :Loading
     }),
+    Bmap:Loadable({
+        loader  :() => import('@COMPONENTS/Bmap'),
+        loading :Loading
+    }),
 };
 
-export default routerRender;
