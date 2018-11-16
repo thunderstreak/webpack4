@@ -1,7 +1,11 @@
 import React from 'react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch, Redirect, HashRouter} from 'react-router-dom'
 
-import routers from '@SRC/routers';
+import routers from '@SRC/routers'
+// import PrivateRoute from '@SRC/routers/PrivateRoute'
+// import HocPrivateRoute from '@SRC/routers/HocPrivateRoute'
+
+// const PrivateRouteHoc = HocPrivateRoute(Route);
 import '../styles/main.less'
 
 export default class App extends React.Component {
@@ -11,13 +15,22 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <Router>
+            <HashRouter>
                 <Switch>
-                    <Route exact path="/" component={routers.Home}/>
-                    <Route exact path="/Mouse" component={routers.Mouse}/>
-                    <Route exact path="/Bmap" component={routers.Bmap}/>
+                    {/*<Redirect from='/Bmap' to='/Mouse'/>*/}
+                    <Route exact path="/home" component={routers.Home}/>
+                    {/*<Route exact path="/mouse" component={routers.Mouse}/>*/}
+
+                    {/*权限路由*/}
+                    {/*<PrivateRoute path="/mouse" component={routers.Mouse}/>*/}
+                    {/*<PrivateRouteHoc path="/bmap" component={routers.Bmap}/>*/}
+
+                    {/*<Route exact path="/bmap" component={routers.Bmap}/>*/}
+                    <Route exact path="/unknownPage" component={routers.unknownPage}/>
+                    <Route exact path="/login" component={routers.Login}/>
+                    <Redirect path="*" to='/unknownPage'/>
                 </Switch>
-            </Router>
+            </HashRouter>
         )
     }
 }

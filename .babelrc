@@ -11,7 +11,13 @@
     ],
     "plugins": [
         "react-hot-loader/babel",
-        "transform-runtime",
+//         "transform-runtime",
+        ["transform-runtime", {
+            "helpers": false,//表示是否开启内联的babel helpers(即babel或者环境本来的存在的垫片或者某些对象方法函数) default:true
+            "polyfill": false,//表示是否把内置的东西(Promise,Set,Map,tec)转换成非全局污染垫片。default:true
+            "regenerator": true,//是否开启generator函数转换成使用regenerator runtime来避免污染全局域。default:true
+            "moduleName": "babel-runtime"//当调用辅助（内置垫片）设置模块（module）名字/路径 default:babel-runtime
+        }],
         "syntax-dynamic-import" // 异步加载语法编译插件
     ],
     "comments": false,//删除注释

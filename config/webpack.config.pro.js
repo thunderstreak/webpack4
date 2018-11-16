@@ -46,8 +46,8 @@ module.exports = {
             cacheGroups: {
                 // 提取 node_modules 中代码
                 vendors: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendors",
+                    test: /[\\/]node_modules[\\/]/,  // 指定是node_modules下的第三方包
+                    name: "vendors", // 打包后的文件名，任意命名
                     chunks: "all"
                 },
                 commons: {
@@ -57,6 +57,7 @@ module.exports = {
                     /**
                      * minSize 默认为 30000
                      * 想要使代码拆分真的按照我们的设置来需要减小 minSize
+                     * 只要超出就生成一个新包
                      */
                     minSize: 30000,
                     // 至少为两个 chunks 的公用代码

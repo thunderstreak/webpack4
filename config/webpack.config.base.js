@@ -29,9 +29,29 @@ module.exports = {
                 type: "javascript/auto",
                 loader: "json-loader"
             },
-            {
+            /*{
                 test: /\.(svg|png|jpe?g|gif|mp4|webm)(\?\S*)?$/,
                 loader: env === 'development' ? 'url-loader?limit=8192&name=images/[name].[ext]' : 'url-loader?limit=8192&name=images/[name].[hash:8].[ext]'
+            },*/
+            /*{
+                test: /\.html$/,
+                use: {
+                    loader: 'html-loader'
+                }
+            },*/
+            {
+                test:/\.(png|jpe?g|gif|svg)$/,
+                use:[
+                    {
+                        loader: "url-loader",
+                        options: {
+                            name: env === 'development' ? "[name].[ext]" : '[name].[hash:8].[ext]',
+                            limit: 8192, // size <= 1kib
+                            outputPath: "images",
+                            // publicPath: "../"
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(woff2|woff|eot|ttf|otf)(\?.*)?$/,

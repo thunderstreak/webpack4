@@ -15,5 +15,13 @@ export default {
         loader  :() => import('@COMPONENTS/Bmap'),
         loading :Loading
     }),
+    unknownPage:Loadable({
+        loader  :() => import('@COMPONENTS/404'),
+        loading :Loading
+    }),
+    Login:Loadable({
+        loader  :() => import('@COMPONENTS/Login'),
+        loading :Loading
+    }),
 };
 
