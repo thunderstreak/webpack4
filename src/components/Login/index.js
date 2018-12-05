@@ -1,8 +1,10 @@
 import React,{ Component, Fragment } from 'react'
+import Boom from '@JAVASCRIPTS/libs/boom/boom/boom'
 
 export default class Login extends Component{
     constructor(){
         super();
+        this.boomBox = React.createRef();
         this.state = {
             name:'Login',
             data:{
@@ -12,7 +14,6 @@ export default class Login extends Component{
                 file:''
             }
         };
-
     }
     handlerChange(e){
 
@@ -42,11 +43,35 @@ export default class Login extends Component{
         console.log(formdata.get('files'));
     }
 
+    handlerBoom(e){
+        console.log(this.boomBox);
+
+        let boomChildList = [];
+
+        for(let i = 0 ; i < 10; i++){
+            let tempDom = document.createElement("div");
+            tempDom.className = "demoDom";
+            tempDom.innerHTML = i;
+            boomChildList.push(tempDom);
+        }
+
+        let boom = new Boom({
+            childList: boomChildList,
+            boomNumber: 6,
+            rotate: 0,
+            spread: 360,
+            delayRange: 100,
+            power: 3,
+            container:this.boomBox.current
+        });
+        boom.boom()
+    }
+
     render(){
         return(
             <Fragment>
                 <div>{this.state.name}</div>
-                <form onSubmit={this.handlerSubmit.bind(this)}>
+                <form onSubmit={this.handlerSubmit.bind(this)} className="boom-box" ref={this.boomBox}>
                     <div className='ipt'>
                         <input type="text" placeholder='user' name='user' value={this.state.data.user} onChange={this.handlerChange.bind(this)}/>{this.state.data.user}
                     </div>
@@ -61,6 +86,7 @@ export default class Login extends Component{
                     </div>
                     <div>
                         <input type="submit" value="Submit" />
+                        <input type="button" onClick={(e) => this.handlerBoom(e)} value='Boom'/>
                     </div>
                 </form>
             </Fragment>

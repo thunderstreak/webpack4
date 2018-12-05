@@ -19,16 +19,17 @@ export default class App extends React.Component {
                 <Switch>
                     {/*<Redirect from='/Bmap' to='/Mouse'/>*/}
                     <Route exact path="/home" component={routers.Home}/>
-                    {/*<Route exact path="/mouse" component={routers.Mouse}/>*/}
+                    <Route exact path="/mouse" component={routers.Mouse}/>
 
                     {/*权限路由*/}
                     {/*<PrivateRoute path="/mouse" component={routers.Mouse}/>*/}
                     {/*<PrivateRouteHoc path="/bmap" component={routers.Bmap}/>*/}
 
-                    {/*<Route exact path="/bmap" component={routers.Bmap}/>*/}
+                    <Route exact path="/bmap" component={routers.Bmap}/>
                     <Route exact path="/unknownPage" component={routers.unknownPage}/>
                     <Route exact path="/login" component={routers.Login}/>
-                    <Redirect path="*" to='/unknownPage'/>
+                    <Route exact path="/drag" component={routers.Drag}/>
+                    <Redirect path="*" to='/home'/>
                 </Switch>
             </HashRouter>
         )

@@ -81,7 +81,7 @@ module.exports = {
             '@STORES'      :path.resolve(root,'src/stores'),
             '@TOOLS'       :path.resolve(root,'src/tools')
         },
-        extensions  : ['.js', '.jsx', '.json', 'less'],//自动扩展文件后缀名
+        extensions  : ['.js', '.jsx', '.json', '.less'],//自动扩展文件后缀名
         // modules     : [ 'node_modules' ],
     },
     plugins: [

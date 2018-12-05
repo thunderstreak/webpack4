@@ -23,5 +23,9 @@ export default {
         loader  :() => import('@COMPONENTS/Login'),
         loading :Loading
     }),
+    Drag:Loadable({
+        loader  :() => import('@COMPONENTS/Drag'),
+        loading :Loading
+    }),
 };
 
