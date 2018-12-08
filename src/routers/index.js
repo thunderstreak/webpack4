@@ -27,5 +27,9 @@ export default {
         loader  :() => import('@COMPONENTS/Drag'),
         loading :Loading
     }),
+    Clock:Loadable({
+        loader  :() => import('@COMPONENTS/Clock'),
+        loading :Loading
+    }),
 };
 

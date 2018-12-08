@@ -16,7 +16,9 @@ export default class Drag extends Component{
             top:0,
             left:0,
         };
+    }
 
+    componentWillMount(){
 
     }
 
@@ -30,6 +32,7 @@ export default class Drag extends Component{
                 <div className="App">
                     <div className="box" onMouseDown={e => this.onMouseDown(e)} style={this.style}>
                         {this.state.name}
+                        {new Date().toLocaleTimeString()}
                     </div>
                 </div>
             </Fragment>

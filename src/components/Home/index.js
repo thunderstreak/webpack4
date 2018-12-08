@@ -16,6 +16,7 @@ export default class Home extends Component{
                 <li><Link to="/Mouse">Mouse</Link></li>
                 <li><Link to="/Bmap">Bmap</Link></li>
                 <li><Link to="/Drag">Drag</Link></li>
+                <li><Link to="/Clock">Clock</Link></li>
             </ul>
         )
     }

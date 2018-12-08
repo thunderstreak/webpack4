@@ -23,7 +23,7 @@ if (module.hot && process.env.NODE_ENV !== 'production') {
     // 处理对特定依赖的更改
     module.hot.accept('./components/App', (err) => {
         if (err) {
-            console.log(err);
+            // console.log(err);
         }
         // 从DOM 中移除已经挂载的 React 组件 然后重装
         ReactDOM.unmountComponentAtNode(MountNode);
