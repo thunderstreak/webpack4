@@ -1,6 +1,6 @@
 import React,{Component,Fragment} from 'react'
 
-const scaleName = {
+const scaleNames = {
     c: 'Celsius',
     f: 'Fahrenheit'
 };
@@ -19,15 +19,16 @@ export default class TemperatureInput extends Component{
 
     handlerChange(e){
         let val = e.target.value;
-        this.setState({temperature:val})
+        this.setState({temperature:val});
+        this.props.onTemperatureChange(val);
     }
 
     render(){
         return (
             <Fragment>
                 <fieldset>
-                    <legend>输入的温度{scaleNames[props.scale]}:</legend>
-                    <input value={this.state.temperature} onChange={this.handleChange} />
+                    <legend>输入的温度{scaleNames[this.props.scale]}:</legend>
+                    <input style={{border:'1px red solid'}} value={this.props.temperature} onChange={this.handlerChange} />{this.props.temperature}
                 </fieldset>
             </Fragment>
         )
