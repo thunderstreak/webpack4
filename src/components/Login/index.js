@@ -11,15 +11,26 @@ export default class Login extends Component{
                 user:'',
                 pass:'',
                 number:'',
-                file:''
+                file:'',
+                text:'',
+                select:'lime',
+                sex:false
             }
         };
     }
+    shouldComponentUpdate(){
+        console.log(this.state.data.sex);
+        return true
+    }
+
     handlerChange(e){
 
         let key = e.target.value;
         let name = e.target.name;
 
+        if(name === 'sex'){
+            key === 'true' ? key = true : key = false;
+        }
         if(name === 'file'){
             console.log(e.target.files[0]);
 
@@ -32,15 +43,14 @@ export default class Login extends Component{
         let data = {};
         data[name] = key;
         this.setState({data:Object.assign( {}, this.state.data, data )});
-
     }
     handlerSubmit(e){
         e.preventDefault();
-        console.log(e.target['file']);
+        /*console.log(e.target['file']);
         let formdata = new FormData();
         formdata.append('files',e.target['file'].files[0]);
-
-        console.log(formdata.get('files'));
+        console.log(formdata.get('files'));*/
+        console.log(this.state.data);
     }
 
     handlerBoom(e){
@@ -85,7 +95,25 @@ export default class Login extends Component{
                         <input type="file" placeholder='file' name='file' value={this.state.data.file} onChange={(e) => this.handlerChange(e)}/>{this.state.data.file}
                     </div>
                     <div>
+                        <textarea placeholder='text' name='text' value={this.state.data.text} onChange={(e) => this.handlerChange(e)}/>{this.state.data.text}
+                    </div>
+                    <div>
+                        <select name="select" value={this.state.data.select} onChange={(e) => this.handlerChange(e)}>
+                            <option value="grapefruit">Grapefruit</option>
+                            <option value="lime">Lime</option>
+                            <option value="coconut">Coconut</option>
+                            <option value="mango">Mango</option>
+                        </select>{this.state.data.select}
+                    </div>
+                    <div>
+                        <input name="sex" type="radio" defaultChecked='true' value={true} onClick={(e) => this.handlerChange(e)}/>
+                        <input name="sex" type="radio" defaultChecked='false' value={false} onClick={(e) => this.handlerChange(e)}/>
+                        {this.state.data.sex ? 'true' : 'false'}
+                    </div>
+                    <div>
                         <input type="submit" value="Submit" />
+                    </div>
+                    <div>
                         <input type="button" onClick={(e) => this.handlerBoom(e)} value='Boom'/>
                     </div>
                 </form>

@@ -30,6 +30,7 @@ export default class App extends React.Component {
                     <Route exact path="/login" component={routers.Login}/>
                     <Route exact path="/drag" component={routers.Drag}/>
                     <Route exact path="/clock" component={routers.Clock}/>
+                    <Route exact path="/stateAscension" component={routers.StateAscension}/>
                     <Redirect path="*" to='/home'/>
                 </Switch>
             </HashRouter>

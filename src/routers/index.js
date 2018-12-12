@@ -31,5 +31,9 @@ export default {
         loader  :() => import('@COMPONENTS/Clock'),
         loading :Loading
     }),
+    StateAscension:Loadable({
+        loader  :() => import('@COMPONENTS/StateAscension'),
+        loading :Loading
+    }),
 };
 
