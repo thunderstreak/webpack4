@@ -39,5 +39,13 @@ export default {
         loader  :() => import('@COMPONENTS/ListFilter/FilterableProductTable'),
         loading :Loading
     }),
+    Themes:Loadable({
+        loader  :() => import('@COMPONENTS/Themes'),
+        loading :Loading
+    }),
+    Portals:Loadable({
+        loader  :() => import('@COMPONENTS/Portals'),
+        loading :Loading
+    }),
 };
 

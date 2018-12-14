@@ -26,6 +26,8 @@ export default class App extends React.Component {
                         <li><Link to="/Clock">Clock</Link></li>
                         <li><Link to="/StateAscension">stateAscension</Link></li>
                         <li><Link to="/ListFilter">listFilter</Link></li>
+                        <li><Link to="/Themes">Themes</Link></li>
+                        <li><Link to="/Portals">Portals</Link></li>
                     </div>
                     <Switch>
 
@@ -43,7 +45,8 @@ export default class App extends React.Component {
                         <Route exact path="/drag" component={routers.Drag}/>
                         <Route exact path="/clock" component={routers.Clock}/>
                         <Route exact path="/stateAscension" component={routers.StateAscension}/>
-                        <Route exact path="/listFilter" component={routers.ListFilter}/>
+                        <Route exact path="/themes" component={routers.Themes}/>
+                        <Route exact path="/portals" component={routers.Portals}/>
                         <Redirect path="*" to='/home'/>
                     </Switch>
                 </div>
