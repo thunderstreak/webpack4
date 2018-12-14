@@ -12,11 +12,13 @@ export default class Calculator extends Component {
         this.state = {
             name : 'Calculator',
             temperature:'',
-            scale:'c'
+            scale:'c',
+            num:''
         };
 
         this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
         this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
+        this.handleFilterNum = this.handleFilterNum.bind(this);
     }
 
     handleCelsiusChange(temperature){
@@ -37,14 +39,46 @@ export default class Calculator extends Component {
         };
     }
 
+    handleFilterNum(e){
+        let num = e.target.value;
+        ///(^[1-9]([0-9]+)?(\.[0-9]*)?$)|(^(0){1}$)|(^(0){1}\.[0-9]+$)/
+        let numbersReg = new RegExp(/\d/, 'g');
+        if(num !== '' && numbersReg.test(num)){
+            let specificreg = new RegExp(/\./,'g');
+            let res;
+            let lastIndex;
+            let i = 0;
+            while ((res = specificreg.exec(num)) != null){
+                if(i === 1){
+                    lastIndex = res.index;
+                    console.log(res)
+                }
+                i ++
+            }
+
+            if(num.charAt(lastIndex) === '.'){
+                num = num.substr(0,lastIndex)
+            }
+            if(num.charAt(0) === '.'){
+                num = ''
+            }
+
+            console.log(num);
+            this.setState({num:num});
+        }else{
+            this.setState({num:''});
+        }
+
+    }
+
     render(){
         const {celsius,fahrenheit} = this.comfirmTransfrom();
-        console.log(celsius,fahrenheit)
         return (
             <Fragment>
                 <TemperatureInput scale="c" temperature={celsius} onTemperatureChange={this.handleCelsiusChange}/>
                 <TemperatureInput scale="f" temperature={fahrenheit} onTemperatureChange={this.handleFahrenheitChange}/>
                 <BoilingVerdict celsius={parseFloat(celsius)}/>
+                <input type="text" value={this.state.num} onInput={this.handleFilterNum}/>{this.state.num}
             </Fragment>
         )
     }

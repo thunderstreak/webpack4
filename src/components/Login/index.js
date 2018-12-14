@@ -17,6 +17,7 @@ export default class Login extends Component{
                 sex:false
             }
         };
+        this.input = React.createRef();
     }
     shouldComponentUpdate(){
         console.log(this.state.data.sex);
@@ -50,7 +51,7 @@ export default class Login extends Component{
         let formdata = new FormData();
         formdata.append('files',e.target['file'].files[0]);
         console.log(formdata.get('files'));*/
-        console.log(this.state.data);
+        console.log(this.state.data,this.input.value);
     }
 
     handlerBoom(e){
@@ -95,6 +96,9 @@ export default class Login extends Component{
                         <input type="file" placeholder='file' name='file' value={this.state.data.file} onChange={(e) => this.handlerChange(e)}/>{this.state.data.file}
                     </div>
                     <div>
+                        <input type="text" ref={(input) => this.input = input} defaultValue="非受控组件" placeholder="非受控组件"/>
+                    </div>
+                    <div>
                         <textarea placeholder='text' name='text' value={this.state.data.text} onChange={(e) => this.handlerChange(e)}/>{this.state.data.text}
                     </div>
                     <div>
@@ -109,6 +113,7 @@ export default class Login extends Component{
                         <input name="sex" type="radio" defaultChecked='true' value={true} onClick={(e) => this.handlerChange(e)}/>
                         <input name="sex" type="radio" defaultChecked='false' value={false} onClick={(e) => this.handlerChange(e)}/>
                         {this.state.data.sex ? 'true' : 'false'}
+                        <input type="checkbox" defaultChecked="true"/>
                     </div>
                     <div>
                         <input type="submit" value="Submit" />

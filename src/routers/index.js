@@ -35,5 +35,9 @@ export default {
         loader  :() => import('@COMPONENTS/StateAscension'),
         loading :Loading
     }),
+    ListFilter:Loadable({
+        loader  :() => import('@COMPONENTS/ListFilter/FilterableProductTable'),
+        loading :Loading
+    }),
 };
 

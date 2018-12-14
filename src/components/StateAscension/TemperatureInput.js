@@ -1,11 +1,11 @@
 import React,{Component,Fragment} from 'react'
 
-const scaleNames = {
-    c: 'Celsius',
-    f: 'Fahrenheit'
-};
-
 export default class TemperatureInput extends Component{
+    static scaleNames = {
+        c: 'Celsius',
+        f: 'Fahrenheit'
+    };
+
     constructor(props){
         super(props);
 
@@ -27,8 +27,8 @@ export default class TemperatureInput extends Component{
         return (
             <Fragment>
                 <fieldset>
-                    <legend>输入的温度{scaleNames[this.props.scale]}:</legend>
-                    <input style={{border:'1px red solid'}} value={this.props.temperature} onChange={this.handlerChange} />{this.props.temperature}
+                    <legend>输入的温度{TemperatureInput.scaleNames[this.props.scale]}:</legend>
+                    <input type="number" style={{border:'1px red solid'}} value={this.props.temperature} onChange={this.handlerChange} />{this.props.temperature}
                 </fieldset>
             </Fragment>
         )

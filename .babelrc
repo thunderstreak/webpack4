@@ -18,6 +18,7 @@
             "regenerator": true,//是否开启generator函数转换成使用regenerator runtime来避免污染全局域。default:true
             "moduleName": "babel-runtime"//当调用辅助（内置垫片）设置模块（module）名字/路径 default:babel-runtime
         }],
+        "transform-decorators-legacy",//装饰器语法
         "syntax-dynamic-import" // 异步加载语法编译插件
     ],
     "comments": false,//删除注释
