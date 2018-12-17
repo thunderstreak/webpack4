@@ -47,5 +47,10 @@ export default {
         loader  :() => import('@COMPONENTS/Portals'),
         loading :Loading
     }),
+    Redux:Loadable({
+        loader  :() => import('@COMPONENTS/Redux'),
+        loading :Loading
+    }),
+
 };
 

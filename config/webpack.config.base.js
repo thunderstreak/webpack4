@@ -79,6 +79,7 @@ module.exports = {
             '@STYLES'      :path.resolve(root,'src/styles'),
             '@IMAGES'      :path.resolve(root,'src/images'),
             '@STORES'      :path.resolve(root,'src/stores'),
+            '@REDUX'       :path.resolve(root,'src/redux'),
             '@TOOLS'       :path.resolve(root,'src/tools')
         },
         extensions  : ['.js', '.jsx', '.json', '.less'],//自动扩展文件后缀名

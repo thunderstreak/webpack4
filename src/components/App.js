@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect, HashRouter,Link} from 'react-router-dom'
-
+import RouteHome from '@COMPONENTS/Home'
 import routers from '@SRC/routers'
 // import PrivateRoute from '@SRC/routers/PrivateRoute'
 // import HocPrivateRoute from '@SRC/routers/HocPrivateRoute'
@@ -17,18 +17,7 @@ export default class App extends React.Component {
         return (
             <HashRouter>
                 <div>
-                    <div>
-                        <li><Link to="/">home</Link></li>
-                        <li><Link to="/Mouse">Mouse</Link></li>
-                        <li><Link to="/Bmap">Bmap</Link></li>
-                        <li><Link to="/Drag">Drag</Link></li>
-                        <li><Link to="/Login">Login</Link></li>
-                        <li><Link to="/Clock">Clock</Link></li>
-                        <li><Link to="/StateAscension">stateAscension</Link></li>
-                        <li><Link to="/ListFilter">listFilter</Link></li>
-                        <li><Link to="/Themes">Themes</Link></li>
-                        <li><Link to="/Portals">Portals</Link></li>
-                    </div>
+                    <RouteHome/>
                     <Switch>
 
                         {/*<Redirect from='/Bmap' to='/Mouse'/>*/}
@@ -45,8 +34,10 @@ export default class App extends React.Component {
                         <Route exact path="/drag" component={routers.Drag}/>
                         <Route exact path="/clock" component={routers.Clock}/>
                         <Route exact path="/stateAscension" component={routers.StateAscension}/>
+                        <Route exact path="/listFilter" component={routers.ListFilter}/>
                         <Route exact path="/themes" component={routers.Themes}/>
                         <Route exact path="/portals" component={routers.Portals}/>
+                        <Route exact path="/redux" component={routers.Redux}/>
                         <Redirect path="*" to='/home'/>
                     </Switch>
                 </div>

@@ -1,12 +1,22 @@
-export const Increment = 'increment';
-export const Decrement = 'decrement';
+let nextTodoId = 0
+export const addTodo = text => ({
+    type: 'ADD_TODO',
+    id: nextTodoId++,
+    text
+})
 
-export const increment = (counterCaption) => ({
-    type: Increment,
-    counterCaption
-});
+export const setVisibilityFilter = filter => ({
+    type: 'SET_VISIBILITY_FILTER',
+    filter
+})
 
-export const decrement = (counterCaption) => ({
-    type: Decrement,
-    counterCaption
-});
+export const toggleTodo = id => ({
+    type: 'TOGGLE_TODO',
+    id
+})
+
+export const VisibilityFilters = {
+    SHOW_ALL: 'SHOW_ALL',
+    SHOW_COMPLETED: 'SHOW_COMPLETED',
+    SHOW_ACTIVE: 'SHOW_ACTIVE'
+}
