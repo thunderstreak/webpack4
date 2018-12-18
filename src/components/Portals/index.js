@@ -1,5 +1,6 @@
 import React,{Component,Fragment} from 'react'
 import Dialog from './dialog'
+
 export default class Portals extends Component{
     constructor(props){
         super(props);
@@ -15,6 +16,10 @@ export default class Portals extends Component{
         this.setState((prevState) => ({
             show:!prevState.show
         }))
+    }
+
+    componentWillMount(){
+
     }
 
     render(){

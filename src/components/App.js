@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import { BrowserRouter as Router, Route, Switch, Redirect, HashRouter,Link} from 'react-router-dom'
 import RouteHome from '@COMPONENTS/Home'
 import routers from '@SRC/routers'
@@ -7,7 +8,14 @@ import routers from '@SRC/routers'
 
 // const PrivateRouteHoc = HocPrivateRoute(Route);
 import '../styles/main.less'
+import CustomRoute from '@SRC/routers/CustomRoute'
 
+const mapStateToProps = (state,ownProps) => {
+    return {
+        todos:state.todos
+    }
+};
+@connect(mapStateToProps)
 export default class App extends React.Component {
     constructor(props){
         super(props);
@@ -17,7 +25,7 @@ export default class App extends React.Component {
         return (
             <HashRouter>
                 <div>
-                    <RouteHome/>
+                    <RouteHome todos={this.props.todos}/>
                     <Switch>
 
                         {/*<Redirect from='/Bmap' to='/Mouse'/>*/}
@@ -38,6 +46,8 @@ export default class App extends React.Component {
                         <Route exact path="/themes" component={routers.Themes}/>
                         <Route exact path="/portals" component={routers.Portals}/>
                         <Route exact path="/redux" component={routers.Redux}/>
+                        <CustomRoute exact path="/authority/:id" component={routers.Authority} names="Authority"/>
+                        {/*<Route exact path="/authority/:id" component={routers.Authority}/>*/}
                         <Redirect path="*" to='/home'/>
                     </Switch>
                 </div>

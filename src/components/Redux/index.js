@@ -1,7 +1,7 @@
 import React,{Component,Fragment} from 'react'
 import Footer from './Footer'
-import AddTodo from './containers/AddTodo'
-import VisibleTodoList from './containers/VisibleTodoList'
+import AddTodo from './AddTodo'
+import TodoList from './TodoList'
 
 export default class Redux extends Component{
 
@@ -13,14 +13,13 @@ export default class Redux extends Component{
     }
 
     componentDidMount(){
-        console.log(1);
     }
 
     render(){
         return(
             <Fragment>
                 <AddTodo />
-                <VisibleTodoList />
+                <TodoList />
                 <Footer />
             </Fragment>
         )

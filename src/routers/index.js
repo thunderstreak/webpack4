@@ -51,6 +51,10 @@ export default {
         loader  :() => import('@COMPONENTS/Redux'),
         loading :Loading
     }),
+    Authority:Loadable({
+        loader  :() => import('@COMPONENTS/Authority'),
+        loading :Loading
+    }),
 
 };
 

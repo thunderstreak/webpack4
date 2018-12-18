@@ -21,9 +21,7 @@ export default function withHocPrivateRoute(WrappedComponent,hocProps) {
             }
         }
         render(){
-            return this.state.isAuthenticated ?  (
-                <WrappedComponent {...hocProps} />
-            ) : ("请重新登录");
+            return this.state.isAuthenticated ? ( <WrappedComponent {...hocProps} /> ) : ("请重新登录");
         }
     })
 }

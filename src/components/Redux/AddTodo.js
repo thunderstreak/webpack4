@@ -2,18 +2,19 @@ import React,{Component,Fragment} from 'react'
 import { connect } from 'react-redux'
 import { addTodo } from '@REDUX/actions'
 
-class AddTodo extends Component{
+@connect()
+export default class AddTodo extends Component{
    constructor(props){
        super(props);
        this.state = {
            inputval : '',
        };
        this.handlerSubmit = this.handlerSubmit.bind(this);
+       this.handlerChange = this.handlerChange.bind(this);
        this.node = React.createRef();
    }
 
    componentWillMount(){
-       console.log(this.props);
    }
 
    handlerSubmit(e){
@@ -26,18 +27,24 @@ class AddTodo extends Component{
        this.setState({inputval:''})
    }
 
+    handlerChange(e){
+       let val = e.target.value;
+       if(!val.trim()){
+           return
+       }
+       this.setState({inputval:val})
+    }
+
    render(){
        return(
            <Fragment>
                <div>
                    <form onSubmit={this.handlerSubmit}>
-                       <input ref={this.node} />
-                       <button type="submit">Add Todo</button>
+                       <input ref={this.node} value={this.state.inputval} onChange={this.handlerChange}/>
+                       <button type="submit">添加待办事项</button>
                    </form>
                </div>
            </Fragment>
        )
    }
 }
-
-export default connect()(AddTodo)

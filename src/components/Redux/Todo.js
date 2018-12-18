@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 export default class Todo extends Component{
 
     static propTypes = {
-        onClick:PropTypes.func.isRequired,
-        completed:PropTypes.bool.isRequired,
-        text:PropTypes.string.isRequired
+        onClick     :PropTypes.func.isRequired,
+        completed   :PropTypes.bool.isRequired,
+        text        :PropTypes.string.isRequired
     };
 
     constructor(props){

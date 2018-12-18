@@ -23,6 +23,9 @@ export default class Home extends Component{
                 <li><Link to="/themes" replace>Themes</Link></li>
                 <li><Link to="/portals" replace>Portals</Link></li>
                 <li><Link to="/redux" replace>Redux</Link></li>
+                <li><Link to="/authority/1" replace>Authority</Link></li>
+
+                <li>{this.props.todos && this.props.todos.length > 0 ? this.props.todos.map((todo) => todo.text) : null}</li>
             </ul>
         )
     }
