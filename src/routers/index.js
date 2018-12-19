@@ -55,6 +55,9 @@ export default {
         loader  :() => import('@COMPONENTS/Authority'),
         loading :Loading
     }),
-
+    Poetry:Loadable({
+        loader  :() => import('@COMPONENTS/Poetry'),
+        loading :Loading
+    })
 };
 

@@ -1,7 +1,7 @@
 import React,{Component,Fragment} from 'react'
 // import PropTypes from 'prop-types'
-import autobind from '@JAVASCRIPTS/libs/autoBind'
-import debounce from '@JAVASCRIPTS/libs/debounce'
+import autobind from '@JAVASCRIPTS/libs/AutoBind'
+import debounce from '@JAVASCRIPTS/libs/Debounce'
 
 
 export default class SearchBar extends Component{

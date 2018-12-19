@@ -5,10 +5,11 @@ import {AppContainer} from 'react-hot-loader';
 import App from './components/App';
 
 // 创建store Provider 相当于root component, 数据自上而下流动
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
 import rootReducer from './redux/reducers'
-const store = createStore(rootReducer);
+import logger from './redux/logger'
+const store = createStore(rootReducer,applyMiddleware(logger));
 
 // 定义要挂载的 DOM 节点
 const MountNode = document.getElementById('app');

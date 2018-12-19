@@ -12,7 +12,8 @@ import CustomRoute from '@SRC/routers/CustomRoute'
 
 const mapStateToProps = (state,ownProps) => {
     return {
-        todos:state.todos
+        todos:state.todos,
+        loginData:state.loginData
     }
 };
 @connect(mapStateToProps)
@@ -25,7 +26,7 @@ export default class App extends React.Component {
         return (
             <HashRouter>
                 <div>
-                    <RouteHome todos={this.props.todos}/>
+                    <RouteHome {...this.props}/>
                     <Switch>
 
                         {/*<Redirect from='/Bmap' to='/Mouse'/>*/}
@@ -47,7 +48,7 @@ export default class App extends React.Component {
                         <Route exact path="/portals" component={routers.Portals}/>
                         <Route exact path="/redux" component={routers.Redux}/>
                         <CustomRoute exact path="/authority/:id" component={routers.Authority} names="Authority"/>
-                        {/*<Route exact path="/authority/:id" component={routers.Authority}/>*/}
+                        <Route exact path="/poetry" component={routers.Poetry}/>
                         <Redirect path="*" to='/home'/>
                     </Switch>
                 </div>

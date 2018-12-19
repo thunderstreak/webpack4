@@ -1,6 +1,9 @@
 import React,{ Component, Fragment } from 'react'
+import {connect} from 'react-redux'
 import Boom from '@JAVASCRIPTS/libs/boom/boom/boom'
+import {loginIng} from '@REDUX/actions'
 
+@connect()
 export default class Login extends Component{
     constructor(){
         super();
@@ -51,7 +54,12 @@ export default class Login extends Component{
         let formdata = new FormData();
         formdata.append('files',e.target['file'].files[0]);
         console.log(formdata.get('files'));*/
-        console.log(this.state.data,this.input.value);
+        // console.log(this.state.data,this.input.value);
+        fetch('https://api.apiopen.top/singlePoetry').then(res => res.json()).then(data => {
+            // console.log(data);
+            this.props.dispatch(loginIng(data.result))
+        })
+
     }
 
     handlerBoom(e){

@@ -15,10 +15,16 @@ export const setVisibilityFilter = filter => {
 };
 
 export const toggleTodo = id => {
-    console.log(id);
     return {
         type: 'TOGGLE_TODO',
         id
+    }
+};
+
+export const loginIng = data => {
+    return {
+        type:'LOGIN_ING',
+        data:data
     }
 };
 
