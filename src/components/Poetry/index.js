@@ -1,9 +1,21 @@
 import React,{Component,Fragment} from 'react'
+import { connect } from 'react-redux'
 import debounce,{_debounce} from '@JAVASCRIPTS/libs/Debounce'
 import {SetTitle} from '@JAVASCRIPTS/libs/SetTitle'
+import { loding } from '@REDUX/actions'
 
+const mapStateToProps = (state) => {
+    return {
+        lodingData:state.lodingData
+    }
+};
 
-@SetTitle('Poetry')
+const mapDispatchToProps = {
+    loding
+};
+
+// @SetTitle('Poetry')
+@connect(mapStateToProps,mapDispatchToProps)
 export default class Poetry extends Component{
     constructor(props){
         super(props);
@@ -11,28 +23,36 @@ export default class Poetry extends Component{
             name : 'Poetry',
             value: '',
             data : '',
-            now:''
         };
 
         this.handlerSearch = this.handlerSearch.bind(this);
         this.fetchData = _debounce(this.fetchData,500);
     }
 
-    componentDidUpdate(prevProps, prevState){
+    componentDidMount(){
 
     }
 
+    componentDidUpdate(prevProps, prevState){
+        console.log(this.props.lodingData);
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        return true;
+    }
+
     fetchData(val){
-        fetch('https://api.apiopen.top/likePoetry?name=' + val).then(res => res.json()).then(data => {
-            this.setState({data:data.result})
-        })
+        let url = 'https://api.apiopen.top/likePoetry?name=' + val;
+        this.props.loding(url);
     }
 
     // @debounce(1000)
     handlerSearch(e) {
         let val = e.target.value;
         this.setState({value:val});
-        this.fetchData(val)
+        if(val){
+            this.fetchData(val)
+        }
     }
 
     render(){
@@ -46,12 +66,15 @@ export default class Poetry extends Component{
                 </div>
             )
         };
-        let data = this.state.data;
+        let data = this.props.lodingData.data;
         for (let i = 0; i < data.length; i++) {
             poetryList.push(div(data[i],i))
         }
         return(
             <Fragment>
+                {this.props.lodingData.status === 'loding' ? this.props.lodingData.status : null}
+                {this.props.lodingData.status === 'success' ? this.props.lodingData.status : null}
+                {this.props.lodingData.status === 'error' ? this.props.lodingData.status : null}
                 <input type="text" value={this.state.value} onChange={this.handlerSearch}/>
                 {poetryList.length ? poetryList : '暂无数据'}
             </Fragment>

@@ -1,10 +1,16 @@
-import {createStore} from 'redux'
-import reducer from '../reducers/todos'
-
-const initValue = {
-    'First' : 0,
-    'Second': 10,
-    'Third' : 20
+/*
+* 初始化定义 state 需要与 rootReducer 里面定义的的状态键名称相同
+* */
+let initialState = {
+    todos           :[],
+    visibilityFilter:'SHOW_ALL',
+    loginData       : {
+        name:'initname'
+    },
+    lodingData      :{
+        data:[],
+        status:''
+    }
 };
 
-export default createStore(reducer, initValue)
+export default initialState

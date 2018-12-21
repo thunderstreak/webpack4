@@ -5,11 +5,8 @@ import {AppContainer} from 'react-hot-loader';
 import App from './components/App';
 
 // 创建store Provider 相当于root component, 数据自上而下流动
-import {createStore, applyMiddleware} from 'redux'
-import {Provider} from 'react-redux'
-import rootReducer from './redux/reducers'
-import logger from './redux/logger'
-const store = createStore(rootReducer,applyMiddleware(logger));
+import { Provider } from 'react-redux'
+import store from './redux/reducers'
 
 // 定义要挂载的 DOM 节点
 const MountNode = document.getElementById('app');
@@ -38,4 +35,11 @@ if (module.hot && process.env.NODE_ENV !== 'production') {
         ReactDOM.unmountComponentAtNode(MountNode);
         render(App);
     });
+
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept('./redux/reducers', (err) => {
+        const nextRootReducer = require('./redux/reducers').default;
+        console.log(nextRootReducer);
+        store.replaceReducer(nextRootReducer)
+    })
 }

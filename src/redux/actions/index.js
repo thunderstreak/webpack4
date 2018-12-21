@@ -23,8 +23,8 @@ export const toggleTodo = id => {
 
 export const loginIng = data => {
     return {
-        type:'LOGIN_ING',
-        data:data
+        type    :'LOGIN_ING',
+        data    :data
     }
 };
 
@@ -33,3 +33,30 @@ export const VisibilityFilters = {
     SHOW_COMPLETED  : 'SHOW_COMPLETED',
     SHOW_ACTIVE     : 'SHOW_ACTIVE'
 };
+
+export const lodingData = data => {
+    return {
+        type    :'LODING',
+        data    :data.result,
+        status  :data.status,
+    }
+};
+
+export function loding(url) {
+    return function (dispatch) {
+        let wd = {
+            result:[],
+            status:'loding'
+        };
+        dispatch(lodingData(wd));
+
+        fetch(url).then(res => res.json()).then((data) => {
+            // 这里可以格式化数据，可以使用normalizr等辅助工具处理数据
+            let d = Object.assign(data,{status:'success'});
+            dispatch(lodingData(d));
+        }).catch((err) => {
+            let e = Object.assign(err,{status:'error'});
+            dispatch(lodingData(e));
+        });
+    }
+}
