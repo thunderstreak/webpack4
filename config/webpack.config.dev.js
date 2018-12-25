@@ -29,7 +29,12 @@ module.exports = {
                     'style-loader',
                     { loader: 'css-loader?modules', options: { importLoaders: 1 } },//css modules可以让css文件以js导入的方式引用
                     'postcss-loader',
-                    'less-loader'
+                    {
+                        loader: "less-loader",
+                        options: {
+                            javascriptEnabled: true,// antd less file 启用 js 解析
+                        }
+                    }
                 ]
             },
         ]

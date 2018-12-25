@@ -10,6 +10,9 @@ let initialState = {
     lodingData      :{
         data:[],
         status:''
+    },
+    saveRoute       :{
+        hashUrl:''
     }
 };
 

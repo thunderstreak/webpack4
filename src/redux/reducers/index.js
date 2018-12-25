@@ -12,6 +12,7 @@ import todos from './todos'
 import visibilityFilter from './visibilityFilter'
 import login from './login'
 import loding from './loding'
+import saveRoute from './saveRoute'
 
 /*
 * 应用异步 sync action
@@ -20,7 +21,7 @@ import loding from './loding'
 let enhancer = applyMiddleware(thunk);
 if (process.env.NODE_ENV === 'development') {
     enhancer = compose(
-        applyMiddleware(thunk, logger)
+        applyMiddleware(thunk, createLogger())
     )
 }
 
@@ -34,14 +35,15 @@ const rootReducer = combineReducers({
     todos           :todos,
     visibilityFilter:visibilityFilter,
     loginData       :login,
-    lodingData      :loding
+    lodingData      :loding,
+    saveRoute       :saveRoute,
 });
 
 // 导入 rootReducer 创建 stroe
 const store = createStore(
     rootReducer,
     initStores,
-    enhancer
+    // enhancer
 );
 
 export default store

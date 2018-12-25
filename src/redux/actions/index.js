@@ -34,6 +34,9 @@ export const VisibilityFilters = {
     SHOW_ACTIVE     : 'SHOW_ACTIVE'
 };
 
+/*
+* Loding data
+* */
 export const lodingData = data => {
     return {
         type    :'LODING',
@@ -60,3 +63,13 @@ export function loding(url) {
         });
     }
 }
+
+/*
+* save route
+* */
+export const saveRoute = (payload) => {
+    return {
+        type:'SAVE_ROUTE',
+        hashUrl:payload
+    }
+};

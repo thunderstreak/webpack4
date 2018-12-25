@@ -265,7 +265,7 @@ const libs = {
         return new Promise((resolve, reject) => {
             fetch(promise).then((response) => {
                 if (response.status == 200) {
-                    // console.log(response.headers.get('Content-Type'));
+                    // console.log(response.headers.get('Home-Type'));
                     // console.log(response.headers.get('Date'));
                     // resolve(response.json());
                     (type && type == 'json') ? resolve(response.json()) : resolve(response);

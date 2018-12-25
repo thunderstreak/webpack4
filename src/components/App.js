@@ -1,7 +1,7 @@
-import React from 'react'
+/*import React from 'react'
 import {connect} from 'react-redux'
-import { BrowserRouter as Router, Route, Switch, Redirect, HashRouter,Link} from 'react-router-dom'
-import RouteHome from '@COMPONENTS/Home'
+import { BrowserRouter as Router, Route, Switch, Redirect, HashRouter} from 'react-router-dom'
+// import SiderMenu from '@COMPONENTS/SiderMenu'
 import routers from '@SRC/routers'
 // import PrivateRoute from '@SRC/routers/PrivateRoute'
 // import HocPrivateRoute from '@SRC/routers/HocPrivateRoute'
@@ -26,16 +26,16 @@ export default class App extends React.Component {
         return (
             <HashRouter>
                 <div>
-                    <RouteHome {...this.props}/>
+                    {/!*<SiderMenu {...this.props}/>*!/}
                     <Switch>
 
-                        {/*<Redirect from='/Bmap' to='/Mouse'/>*/}
+                        {/!*<Redirect from='/Bmap' to='/Mouse'/>*!/}
                         <Route exact path="/home" component={routers.Home}/>
                         <Route exact path="/mouse" component={routers.Mouse}/>
 
-                        {/*权限路由*/}
-                        {/*<PrivateRoute path="/mouse" component={routers.Mouse}/>*/}
-                        {/*<PrivateRouteHoc path="/bmap" component={routers.Bmap}/>*/}
+                        {/!*权限路由*!/}
+                        {/!*<PrivateRoute path="/mouse" component={routers.Mouse}/>*!/}
+                        {/!*<PrivateRouteHoc path="/bmap" component={routers.Bmap}/>*!/}
 
                         <Route exact path="/bmap" component={routers.Bmap}/>
                         <Route exact path="/unknownPage" component={routers.unknownPage}/>
@@ -53,6 +53,28 @@ export default class App extends React.Component {
                     </Switch>
                 </div>
             </HashRouter>
+        )
+    }
+}
+*/
+
+import React,{Component,Fragment} from 'react'
+import { BrowserRouter as Router, Route, Switch, Redirect, HashRouter, withRouter} from 'react-router-dom'
+import Home from './Home'
+
+export default class App extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            name : 'App'
+        }
+    }
+
+    render(){
+        return(
+            <Router>
+                <Route path="/" component={Home}/>
+            </Router>
         )
     }
 }

@@ -1,9 +1,9 @@
 import React,{Component,Fragment} from 'react'
 import Proptyps from 'prop-types'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 
-
-export default class Authority extends Component{
+class Authority extends Component{
     static propTypes = {
         isLoding    :Proptyps.bool,
         loginUserName:Proptyps.string,
@@ -18,7 +18,7 @@ export default class Authority extends Component{
     }
 
     componentDidMount(){
-        console.log(this.props);
+
     }
 
     render(){
@@ -33,7 +33,10 @@ export default class Authority extends Component{
                 {
                     this.props.loginError ? <p>{this.props.loginError}</p> : null
                 }
+                {this.props.match.params.id}
             </Fragment>
         )
     }
 }
+
+export default withRouter(Authority)

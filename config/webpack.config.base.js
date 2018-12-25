@@ -64,9 +64,20 @@ module.exports = {
         ]
     },
 
+    /*
+    * 这里externals告诉webpack那些资源从哪里寻找。 该对象的键表示 require 或者 import 时候的字符串
+    * 值表示的当前环境下的变量，比如引入 react 之后，react 被作为全局对象，webpack就回去寻找 react 对象。
+    * 如果其中有一个找不到，打包就会失败。
+    * */
     externals: {
-        jquery  : 'jQuery',
-        BMap    : 'BMap',
+        'jquery'            : 'jQuery',
+        'BMap'              : 'BMap',
+        // 'react'             : 'react',
+        // 'react-dom'         : 'React-dom',
+        // 'react-router-dom'  : 'react-router-dom',
+        // 'redux'             : 'redux',
+        // 'react-redux'       : 'react-redux',
+        // 'moment'            : 'moment',
     },
 
     //入口文件配置解析类型

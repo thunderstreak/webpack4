@@ -8,9 +8,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");//提取css
 const BundleAnalyzer = require('webpack-bundle-analyzer');//拆分 js 代码
 
 module.exports = {
+    devtool : 'false',
     entry: {
         app     : path.resolve(root, 'src/index.js'),
-        vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
+        vendor  : ['react', 'react-dom', 'react-router-dom', 'redux', 'react-redux']
     },
     output: {
         path            : path.resolve(root, 'dist'),
@@ -36,7 +37,13 @@ module.exports = {
                         //     plugins: () => [require('autoprefixer')]
                         // },
                     },
-                    'less-loader']
+                    {
+                        loader: "less-loader",
+                        options: {
+                            javascriptEnabled: true,// antd less file 启用 js 解析
+                        }
+                    }
+                ]
             },
         ]
     },

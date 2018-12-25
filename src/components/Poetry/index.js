@@ -1,6 +1,7 @@
 import React,{Component,Fragment} from 'react'
+import { Button } from 'antd';
 import { connect } from 'react-redux'
-import debounce,{_debounce} from '@JAVASCRIPTS/libs/Debounce'
+import {_debounce} from '@JAVASCRIPTS/libs/Debounce'
 import {SetTitle} from '@JAVASCRIPTS/libs/SetTitle'
 import { loding } from '@REDUX/actions'
 
@@ -14,7 +15,7 @@ const mapDispatchToProps = {
     loding
 };
 
-// @SetTitle('Poetry')
+@SetTitle('Poetry')
 @connect(mapStateToProps,mapDispatchToProps)
 export default class Poetry extends Component{
     constructor(props){
@@ -26,6 +27,7 @@ export default class Poetry extends Component{
         };
 
         this.handlerSearch = this.handlerSearch.bind(this);
+        this.GotoRouter = this.GotoRouter.bind(this);
         this.fetchData = _debounce(this.fetchData,500);
     }
 
@@ -34,7 +36,7 @@ export default class Poetry extends Component{
     }
 
     componentDidUpdate(prevProps, prevState){
-        console.log(this.props.lodingData);
+
     }
 
     shouldComponentUpdate(nextProps, nextState){
@@ -53,6 +55,11 @@ export default class Poetry extends Component{
         if(val){
             this.fetchData(val)
         }
+    }
+
+    // 跳转路由
+    GotoRouter(){
+        this.props.history.push('/authority/2')
     }
 
     render(){
@@ -76,6 +83,7 @@ export default class Poetry extends Component{
                 {this.props.lodingData.status === 'success' ? this.props.lodingData.status : null}
                 {this.props.lodingData.status === 'error' ? this.props.lodingData.status : null}
                 <input type="text" value={this.state.value} onChange={this.handlerSearch}/>
+                <Button type="primary" onClick={this.GotoRouter}>Loading</Button>
                 {poetryList.length ? poetryList : '暂无数据'}
             </Fragment>
         )
