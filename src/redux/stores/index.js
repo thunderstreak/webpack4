@@ -5,7 +5,8 @@ let initialState = {
     todos           :[],
     visibilityFilter:'SHOW_ALL',
     loginData       : {
-        name:'initname'
+        name:'',
+        author:''
     },
     lodingData      :{
         data:[],

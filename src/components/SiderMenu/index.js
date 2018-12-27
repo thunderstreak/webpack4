@@ -19,22 +19,22 @@ export default class SiderMenu extends Component{
             name:'home',
             router:{
                 sub1:[
-                    { type:'sub1', id:1,name:'login', path:'/login' },
-                    { type:'sub1', id:2,name:'mouse', path:'/mouse' },
-                    { type:'sub1', id:3,name:'bmap', path:'/bmap' },
-                    { type:'sub1', id:4,name:'clock', path:'/clock' },
+                    { type:'sub1', id:'1',name:'login', path:'/login' },
+                    { type:'sub1', id:'2',name:'mouse', path:'/mouse' },
+                    { type:'sub1', id:'3',name:'bmap', path:'/bmap' },
+                    { type:'sub1', id:'4',name:'clock', path:'/clock' },
                 ],
                 sub2:[
-                    { type:'sub1', id:5,name:'stateAscension', path:'/stateAscension' },
-                    { type:'sub1', id:6,name:'listFilter', path:'/listFilter' },
-                    { type:'sub1', id:7,name:'themes', path:'/themes' },
-                    { type:'sub1', id:8,name:'portals', path:'/portals' },
+                    { type:'sub2', id:'5',name:'stateAscension', path:'/stateAscension' },
+                    { type:'sub2', id:'6',name:'listFilter', path:'/listFilter' },
+                    { type:'sub2', id:'7',name:'themes', path:'/themes' },
+                    { type:'sub2', id:'8',name:'portals', path:'/portals' },
                 ],
                 sub3:[
-                    { type:'sub1', id:9,name:'redux', path:'/redux' },
-                    { type:'sub1', id:10,name:'authority', path:'/authority/1' },
-                    { type:'sub1', id:11,name:'poetry', path:'/poetry' },
-                    { type:'sub1', id:12,name:'nested', path:'/nested/test1' },
+                    { type:'sub3', id:'9',name:'redux', path:'/redux' },
+                    { type:'sub3', id:'10',name:'authority', path:'/authority/1' },
+                    { type:'sub3', id:'11',name:'poetry', path:'/poetry' },
+                    { type:'sub3', id:'12',name:'nested', path:'/nested/test1' },
                 ]
             }
         };
@@ -43,11 +43,15 @@ export default class SiderMenu extends Component{
     }
 
     componentWillUpdate(){
-
+        // console.log(this.props);
     }
 
     handerChange(item){
         // console.log(item);
+    }
+
+    handlerSelect(){
+        console.log(1);
     }
 
     filterHashUrl(val){
@@ -60,8 +64,6 @@ export default class SiderMenu extends Component{
                     }
                 }
             }
-        }else{
-            return router.sub1[0]
         }
     }
 
@@ -69,21 +71,25 @@ export default class SiderMenu extends Component{
         let selected = this.filterHashUrl();
         console.log(selected);
 
-        let dashBoard = Object.keys(this.state.router).map(key => (
-            <SubMenu key={key} title={<span><Icon type="laptop" />{key}</span>}>
-                {
-                    this.state.router[key].map(val =>
-                        ( <Menu.Item key={val.id} onClick={this.handerChange}>
-                            <Link to={val.path}>{val.name}</Link>
-                        </Menu.Item> )
-                    )
-                }
-            </SubMenu>
-        ));
+        if(!selected) return null;
+
+        let dashBoard = Object.keys(this.state.router).map(key => {
+            return (
+                <SubMenu key={key} title={<span><Icon type="laptop" />{key}</span>}>
+                    {
+                        this.state.router[key].map(val =>
+                            ( <Menu.Item key={val.id} onClick={this.handerChange}>
+                                <Link to={val.path}>{val.name}</Link>
+                            </Menu.Item> )
+                        )
+                    }
+                </SubMenu>
+            )
+        });
 
         return(
             <Sider width={200} style={{ background: '#fff' }}>
-                <Menu mode="inline" defaultSelectedKeys={[selected.id.toString()]} defaultOpenKeys={[selected.type]} style={{ height: '100%', borderRight: 0 }} >
+                <Menu mode="inline" onSelect={this.handlerSelect} defaultSelectedKeys={[selected.id]} defaultOpenKeys={[selected.type]} style={{ height: '100%', borderRight: 0 }} >
                     {dashBoard}
                 </Menu>
             </Sider>

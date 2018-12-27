@@ -1,6 +1,9 @@
 import React,{ Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
+/*
+*
+* */
 export default function withHocPrivateRoute(WrappedComponent,hocProps) {
     if(!WrappedComponent){
         throw new Error("缺少组件参数");

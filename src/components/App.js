@@ -62,6 +62,8 @@ import React,{Component,Fragment} from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect, HashRouter, withRouter} from 'react-router-dom'
 import Home from './Home'
 
+import Login from  './Login'
+
 export default class App extends Component{
     constructor(props){
         super(props);
@@ -72,9 +74,11 @@ export default class App extends Component{
 
     render(){
         return(
-            <Router>
-                <Route path="/" component={Home}/>
-            </Router>
+            <Fragment>
+                <Router>
+                    <Route exact path="/" component={Home}/>
+                </Router>
+            </Fragment>
         )
     }
 }
