@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 
 import App from './components/App';
+// import App from './components/Home'
 
 // 创建store Provider 相当于root component, 数据自上而下流动
 import { Provider } from 'react-redux'

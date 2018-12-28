@@ -23,6 +23,7 @@ export default class SiderMenu extends Component{
                     { type:'sub1', id:'2',name:'mouse', path:'/mouse' },
                     { type:'sub1', id:'3',name:'bmap', path:'/bmap' },
                     { type:'sub1', id:'4',name:'clock', path:'/clock' },
+                    { type:'sub1', id:'13',name:'drag', path:'/drag' },
                 ],
                 sub2:[
                     { type:'sub2', id:'5',name:'stateAscension', path:'/stateAscension' },
@@ -36,49 +37,80 @@ export default class SiderMenu extends Component{
                     { type:'sub3', id:'11',name:'poetry', path:'/poetry' },
                     { type:'sub3', id:'12',name:'nested', path:'/nested/test1' },
                 ]
-            }
+            },
+            openKeys: ['sub1'],
+            selectedKeys:[],
         };
-        this.handerChange = this.handerChange.bind(this);
         this.filterHashUrl = this.filterHashUrl.bind(this);
     }
 
-    componentWillUpdate(){
-        // console.log(this.props);
-    }
+    handerMenuItemChange = (item) => {
+        for (let key in this.state.router) {
+            let k = this.state.router[key].find(v => item.key === v.id);
+            if(k){
+                this.setState({selectedKeys:[k.id]});
+                break;
+            }
+        }
+        // let k = Object.keys(this.state.router).find(key => item.key === key.id)
+        // console.log(Object.keys(this.state.router));
+    };
 
-    handerChange(item){
-        // console.log(item);
-    }
 
-    handlerSelect(){
-        console.log(1);
-    }
+    // 收起其他展开的所有菜单
+    handerMenuOpenChange = (openKeys) => {
+        console.log(openKeys); //["sub1", "sub3"]
+        const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+        if (Object.keys(this.state.router).indexOf(latestOpenKey) === -1) {
+            this.setState({ openKeys });
+        } else {
+            this.setState({
+                openKeys: latestOpenKey ? [latestOpenKey] : [],
+            });
+        }
+    };
 
-    filterHashUrl(val){
+    filterHashUrl(v){
         let router = this.state.router;
         if(this.props.hash){
             for(let key in router){
                 for(let val of router[key]){
                     if(this.props.hash.indexOf(val.name) !== -1){
-                        return val;
+                        if(v){
+                            return Object.keys(router).find(k => [val.type].indexOf(k) === -1)
+                        }else{
+                            return val;
+                        }
                     }
                 }
             }
         }
     }
 
+    filterHashUrltoState(url){
+        let router = this.state.router;
+        for(let key in router){
+            for(let val of router[key]){
+                if(url.indexOf(val.name) !== -1){
+                    return val;
+                }
+            }
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        let r = this.filterHashUrltoState(nextProps.hash);
+        this.setState({selectedKeys:[r.id],openKeys:[r.type]});
+
+    }
+
     render(){
-        let selected = this.filterHashUrl();
-        console.log(selected);
-
-        if(!selected) return null;
-
         let dashBoard = Object.keys(this.state.router).map(key => {
             return (
                 <SubMenu key={key} title={<span><Icon type="laptop" />{key}</span>}>
                     {
                         this.state.router[key].map(val =>
-                            ( <Menu.Item key={val.id} onClick={this.handerChange}>
+                                ( <Menu.Item key={val.id} onClick={this.handerMenuItemChange}>
                                 <Link to={val.path}>{val.name}</Link>
                             </Menu.Item> )
                         )
@@ -89,32 +121,16 @@ export default class SiderMenu extends Component{
 
         return(
             <Sider width={200} style={{ background: '#fff' }}>
-                <Menu mode="inline" onSelect={this.handlerSelect} defaultSelectedKeys={[selected.id]} defaultOpenKeys={[selected.type]} style={{ height: '100%', borderRight: 0 }} >
+                <Menu mode="inline"
+                      selectedKeys={this.state.selectedKeys}
+                      openKeys={this.state.openKeys}
+                      onOpenChange={this.handerMenuOpenChange}
+                      defaultSelectedKeys={this.state.selectedKeys}
+                      defaultOpenKeys={this.state.openKeys}
+                      style={{ height: '100%', borderRight: 0 }} >
                     {dashBoard}
                 </Menu>
             </Sider>
         )
     }
 }
-/*
-<Fragment>
-    <ul style={{border:'1px red solid'}}>
-        <li><Link to="/" replace>home</Link></li>
-        <li><Link to="/mouse" replace>Mouse</Link></li>
-        <li><Link to="/Bmap" replace>Bmap</Link></li>
-        <li><Link to="/drag" replace>Drag</Link></li>
-        <li><Link to="/login" replace>Login</Link></li>
-        <li><Link to="/clock" replace>Clock</Link></li>
-        <li><Link to="/stateAscension" replace>stateAscension</Link></li>
-        <li><Link to="/listFilter" replace>listFilter</Link></li>
-        <li><Link to="/themes" replace>Themes</Link></li>
-        <li><Link to="/portals" replace>Portals</Link></li>
-        <li><Link to="/redux" replace>Redux</Link></li>
-        <li><Link to="/authority/1" replace>Authority</Link></li>
-        <li><Link to="/poetry" replace>Poetry</Link></li>
-
-        <li>{this.props.todos && this.props.todos.length > 0 ? this.props.todos.map((todo) => todo.text) : null}</li>
-        <li>{this.props.loginData ? this.props.loginData.content : null}</li>
-    </ul>
-</Fragment>
-* */

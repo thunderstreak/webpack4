@@ -43,7 +43,7 @@ const rootReducer = combineReducers({
 const store = createStore(
     rootReducer,
     initStores,
-    enhancer
+    // enhancer
 );
 
 export default store
