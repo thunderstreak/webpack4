@@ -29,8 +29,8 @@ export default class ContentComponent extends Component{
     constructor(props){
         super(props);
         this.state = {
-            hash : ''
-        }
+            hash : '',
+        };
     }
 
     componentDidMount(){
@@ -38,20 +38,20 @@ export default class ContentComponent extends Component{
         this.props.dispatch(saveRoute(hashUrl));
     }
 
-    componentWillUpdate(nextProps,nextState){
+    componentWillUpdate(nextProps){
         let hashUrl = nextProps.location.hash.replace('#','');
         this.props.dispatch(saveRoute(hashUrl));
         // console.log(hashUrl);
     }
 
     render(){
-
+        let hashUrl = this.props.location.hash.replace('#','');
         return(
             <HashRouter>
                 <Layout>
                     <HeaderComponent/>
                     <Layout>
-                        <SiderMenuComponent/>
+                        <SiderMenuComponent hash={hashUrl} />
                         <Layout style={{ padding: '0 24px 24px' }}>
                             <Breadcrumb style={{ margin: '16px 0' }}>
                                 <Breadcrumb.Item>Home</Breadcrumb.Item>

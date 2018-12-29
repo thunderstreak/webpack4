@@ -1,4 +1,5 @@
 import React,{Component,Fragment} from 'react'
+import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd'
@@ -13,6 +14,9 @@ const mapStateToProps = (state) => {
 @connect(mapStateToProps)
 export default class SiderMenu extends Component{
     static displayName = "HOME";
+    static propTypes = {
+        hash:PropTypes.string
+    };
     constructor(props){
         super(props);
         this.state = {
@@ -41,51 +45,39 @@ export default class SiderMenu extends Component{
             openKeys: ['sub1'],
             selectedKeys:[],
         };
-        this.filterHashUrl = this.filterHashUrl.bind(this);
+        // console.log(this.props.hash);
     }
 
     handerMenuItemChange = (item) => {
         for (let key in this.state.router) {
-            let k = this.state.router[key].find(v => item.key === v.id);
-            if(k){
-                this.setState({selectedKeys:[k.id]});
-                break;
+            if(this.state.router.hasOwnProperty(key)){
+                let k = this.state.router[key].find(v => item.key === v.id);
+                if(k){
+                    this.setState({selectedKeys:[k.id]});
+                    break;
+                }
             }
         }
-        // let k = Object.keys(this.state.router).find(key => item.key === key.id)
-        // console.log(Object.keys(this.state.router));
     };
 
 
     // 收起其他展开的所有菜单
     handerMenuOpenChange = (openKeys) => {
-        console.log(openKeys); //["sub1", "sub3"]
+        // console.log(openKeys); //["sub1", "sub3"]
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+        // console.log(latestOpenKey);
         if (Object.keys(this.state.router).indexOf(latestOpenKey) === -1) {
-            this.setState({ openKeys });
+            this.setState({ openKeys },() => {
+                console.log(this.state.openKeys);
+            });
         } else {
             this.setState({
                 openKeys: latestOpenKey ? [latestOpenKey] : [],
+            },() => {
+                console.log(this.state.openKeys);
             });
         }
     };
-
-    filterHashUrl(v){
-        let router = this.state.router;
-        if(this.props.hash){
-            for(let key in router){
-                for(let val of router[key]){
-                    if(this.props.hash.indexOf(val.name) !== -1){
-                        if(v){
-                            return Object.keys(router).find(k => [val.type].indexOf(k) === -1)
-                        }else{
-                            return val;
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     filterHashUrltoState(url){
         let router = this.state.router;
@@ -98,11 +90,31 @@ export default class SiderMenu extends Component{
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    /*
+    * 在17.0.0版本之前不会废弃 componentWillReceiveProps 这个生命周期，但会推荐使用 getDerivedStateFromProps 静态方法来做更新处理
+    * 组件实例化后和接受新属性时将会调用,返回一个对象来更新状态，或者返回null来表明新属性不需要更新任何状态。
+    * */
+    static getDerivedStateFromProps(nextProps, prevState){
+        console.log(prevState.openKeys);
+        if(nextProps.hash){
+            let router = prevState.router;
+            for(let key in router){
+                if(router.hasOwnProperty(key)){
+                    for(let val of router[key]){
+                        if(nextProps.hash.indexOf(val.name) !== -1){
+                            return {selectedKeys:[val.id],openKeys:[val.type]};
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    /*componentWillReceiveProps(nextProps){
+        // console.log(nextProps);
         let r = this.filterHashUrltoState(nextProps.hash);
         this.setState({selectedKeys:[r.id],openKeys:[r.type]});
-
-    }
+    }*/
 
     render(){
         let dashBoard = Object.keys(this.state.router).map(key => {
@@ -110,7 +122,7 @@ export default class SiderMenu extends Component{
                 <SubMenu key={key} title={<span><Icon type="laptop" />{key}</span>}>
                     {
                         this.state.router[key].map(val =>
-                                ( <Menu.Item key={val.id} onClick={this.handerMenuItemChange}>
+                            ( <Menu.Item key={val.id} onClick={this.handerMenuItemChange}>
                                 <Link to={val.path}>{val.name}</Link>
                             </Menu.Item> )
                         )
