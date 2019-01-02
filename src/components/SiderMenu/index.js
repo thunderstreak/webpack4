@@ -94,7 +94,7 @@ export default class SiderMenu extends Component{
     * 在17.0.0版本之前不会废弃 componentWillReceiveProps 这个生命周期，但会推荐使用 getDerivedStateFromProps 静态方法来做更新处理
     * 组件实例化后和接受新属性时将会调用,返回一个对象来更新状态，或者返回null来表明新属性不需要更新任何状态。
     * */
-    static getDerivedStateFromProps(nextProps, prevState){
+    /*static getDerivedStateFromProps(nextProps, prevState){
         console.log(prevState.openKeys);
         if(nextProps.hash){
             let router = prevState.router;
@@ -109,12 +109,12 @@ export default class SiderMenu extends Component{
             }
         }
         return null;
-    }
-    /*componentWillReceiveProps(nextProps){
+    }*/
+    componentWillReceiveProps(nextProps){
         // console.log(nextProps);
         let r = this.filterHashUrltoState(nextProps.hash);
         this.setState({selectedKeys:[r.id],openKeys:[r.type]});
-    }*/
+    }
 
     render(){
         let dashBoard = Object.keys(this.state.router).map(key => {

@@ -57,6 +57,12 @@ module.exports = {
                     name: "vendors", // 打包后的文件名，任意命名
                     chunks: "all"
                 },
+                utils: { // 抽离自定义公共代码
+                    test: /\.js$/,
+                    chunks: 'initial',
+                    name: 'utils',
+                    minSize: 0 // 只要超出0字节就生成一个新包
+                },
                 commons: {
                     // async 设置提取异步代码中的公用代码
                     chunks: "async",

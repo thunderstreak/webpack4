@@ -21,7 +21,8 @@ import saveRoute from './saveRoute'
 let enhancer = applyMiddleware(thunk);
 if (process.env.NODE_ENV === 'development') {
     enhancer = compose(
-        applyMiddleware(thunk, createLogger())
+        // applyMiddleware(thunk, createLogger())
+        applyMiddleware(thunk)
     )
 }
 
@@ -43,7 +44,7 @@ const rootReducer = combineReducers({
 const store = createStore(
     rootReducer,
     initStores,
-    // enhancer
+    enhancer
 );
 
 export default store

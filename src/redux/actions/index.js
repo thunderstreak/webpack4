@@ -54,6 +54,10 @@ export function loding(url) {
         dispatch(lodingData(wd));
 
         fetch(url).then(res => res.json()).then((data) => {
+            data.result = data.result.map((x,i) => {
+                x.id = i;
+                return x
+            });
             // 这里可以格式化数据，可以使用normalizr等辅助工具处理数据
             let d = Object.assign(data,{status:'success'});
             dispatch(lodingData(d));
