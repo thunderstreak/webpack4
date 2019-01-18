@@ -40,7 +40,10 @@ export default class SiderMenu extends Component{
                     { type:'sub3', id:'10',name:'authority', path:'/authority/1' },
                     { type:'sub3', id:'11',name:'poetry', path:'/poetry' },
                     { type:'sub3', id:'12',name:'nested', path:'/nested/test1' },
-                ]
+                ],
+                sub4:[
+                    { type:'sub4', id:'13',name:'saga', path:'/saga' },
+                ],
             },
             openKeys: ['sub1'],
             selectedKeys:[],
@@ -113,7 +116,7 @@ export default class SiderMenu extends Component{
     componentWillReceiveProps(nextProps){
         // console.log(nextProps);
         let r = this.filterHashUrltoState(nextProps.hash);
-        this.setState({selectedKeys:[r.id],openKeys:[r.type]});
+        r && this.setState({selectedKeys:[r.id],openKeys:[r.type]});
     }
 
     render(){

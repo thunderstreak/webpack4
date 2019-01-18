@@ -1,7 +1,10 @@
 import { createStore, combineReducers ,applyMiddleware, compose} from 'redux'
 import { createLogger } from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
-import logger from '../logger'
+// import logger from '../logger';
+import rootSaga from '../saga';
+
 
 import initStores from '../stores'
 
@@ -13,18 +16,23 @@ import visibilityFilter from './visibilityFilter'
 import login from './login'
 import loding from './loding'
 import saveRoute from './saveRoute'
+import saga from './saga'
 
 /*
 * 应用异步 sync action
 * 并应用中间件日志
 * */
-let enhancer = applyMiddleware(thunk);
-if (process.env.NODE_ENV === 'development') {
+const sagaMiddleware = createSagaMiddleware();// 创建saga
+const logger = createLogger();//创建redux log
+const middlewares = [ thunk, sagaMiddleware, logger ];
+
+let enhancer = applyMiddleware(...middlewares);
+/*if (process.env.NODE_ENV === 'development') {
     enhancer = compose(
         // applyMiddleware(thunk, createLogger())
-        applyMiddleware(thunk)
+        applyMiddleware(...middlewares)
     )
-}
+}*/
 
 /*
 * 通过combineReducers()命名空间生成的状态名，每个reducer的状态在其键下传递给combineReducers()
@@ -38,6 +46,7 @@ const rootReducer = combineReducers({
     loginData       :login,
     lodingData      :loding,
     saveRoute       :saveRoute,
+    saga            :saga,
 });
 
 // 导入 rootReducer 创建 stroe
@@ -46,5 +55,7 @@ const store = createStore(
     initStores,
     enhancer
 );
+
+sagaMiddleware.run(rootSaga);
 
 export default store

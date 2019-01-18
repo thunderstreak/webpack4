@@ -36,8 +36,9 @@
         "less-loader": "^4.1.0",
         "mini-css-extract-plugin": "^0.4.2",
         "postcss-loader": "^3.0.0",
-        "react-hot-loader": "^4.3.5",
+        "react-hot-loader": "^4.6.3",
         "redux-logger": "^3.0.6",
+        "redux-saga": "^0.16.2",
         "redux-thunk": "^2.3.0",
         "rxjs": "^6.3.3",
         "rxjs-hooks": "^0.2.0",
@@ -46,7 +47,7 @@
         "webpack": "^4.17.1",
         "webpack-bundle-analyzer": "^2.13.1",
         "webpack-cli": "^3.1.0",
-        "webpack-dev-server": "^3.1.6",
+        "webpack-dev-server": "^3.1.14",
         "webpack-merge": "^4.1.4"
     },
     "dependencies": {

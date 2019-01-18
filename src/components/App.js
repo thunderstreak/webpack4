@@ -61,8 +61,9 @@ export default class App extends React.Component {
 import React,{Component,Fragment} from 'react'
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 import Home from './Home'
+import { hot } from 'react-hot-loader'
 
-export default class App extends Component{
+class App extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -80,3 +81,10 @@ export default class App extends Component{
         )
     }
 }
+
+/*const App = () => (
+    <Router>
+        <Route exact path="/" component={Home}/>
+    </Router>
+);*/
+export default hot(module)(App)

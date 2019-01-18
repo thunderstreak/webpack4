@@ -97,6 +97,11 @@ export default {
         loading :Loading,
         delay   : 300
     }),
+    Saga:Loadable({
+        loader  :() => import('@COMPONENTS/Saga'),
+        loading :Loading,
+        delay   : 300
+    }),
 
 };
 

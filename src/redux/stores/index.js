@@ -14,6 +14,9 @@ let initialState = {
     },
     saveRoute       :{
         hashUrl:''
+    },
+    saga            :{
+        value:0
     }
 };
 

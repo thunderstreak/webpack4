@@ -58,6 +58,7 @@ export default class Login extends Component{
         fetch('https://api.apiopen.top/singlePoetry').then(res => res.json()).then(data => {
             // console.log(data);
             this.props.dispatch(loginIng(data.result))
+            this.props.history.push('/bmap')
         })
 
     }

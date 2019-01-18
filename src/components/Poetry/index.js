@@ -106,14 +106,18 @@ export default class Poetry extends Component{
                 setTimeout(() => this.searchInput.select());
             }
         },
-        render: (text) => (
+        render: (text) => {
+            return (
             <Highlighter
                 highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
                 searchWords={[this.state.searchText]}
                 autoEscape
+                highlightTag={({ children, highlightIndex }) => (
+                    <strong className="highlighted-text">{children}</strong>
+                )}
                 textToHighlight={text.toString()}
             />
-        ),
+        )},
     });
 
     handleSearch = (selectedKeys, confirm) => {
