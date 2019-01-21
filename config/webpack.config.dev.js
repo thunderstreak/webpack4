@@ -66,8 +66,9 @@ module.exports = {
 
         proxy: {//代理模式
             "/api": {
-                target: "http://localhost:3000",
-                pathRewrite: {"^/api" : ""}
+                "target": "http://jsonplaceholder.typicode.com/",
+                "changeOrigin": true,
+                "pathRewrite": { "^/api" : "" }
             }
         }
 

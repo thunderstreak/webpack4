@@ -1,14 +1,14 @@
 import React,{Component,Fragment} from 'react'
 import { connect } from 'react-redux'
 import Counter from './Counter'
-import {sagaTest} from '@REDUX/actions'
-import {incrementAsync} from '@REDUX/saga'
+import Users from './Users'
 
 const mapStateToProps = (state) => {
     return {
-        value:state.saga.value
+        value:state.counter.value
     }
 };
+
 
 @connect(mapStateToProps)
 export default class Saga extends Component{
@@ -22,11 +22,15 @@ export default class Saga extends Component{
 
 
     onIncrement = () => {
-        this.props.dispatch(incrementAsync())
+        this.props.dispatch({
+            type:'INCREMENT_ASYNC',
+        })
     };
-    onHanderl = (type) => {
-        this.props.dispatch(incrementAsync())
-    }
+    onDecrement = () => {
+        this.props.dispatch({
+            type:'DECREMENT_ASYNC',
+        })
+    };
 
     render(){
         return(
@@ -34,8 +38,9 @@ export default class Saga extends Component{
                 {this.props.value}
                 <Counter value={this.props.value}
                          onIncrement={this.onIncrement}
-                         onDecrement={() => this.props.dispatch('DECREMENT')}
+                         onDecrement={this.onDecrement}
                          onIncrementAsync={() => this.props.dispatch('INCREMENT_ASYNC')}/>
+                <Users/>
             </Fragment>
         )
     }

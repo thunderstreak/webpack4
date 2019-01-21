@@ -16,7 +16,7 @@ import visibilityFilter from './visibilityFilter'
 import login from './login'
 import loding from './loding'
 import saveRoute from './saveRoute'
-import saga from './saga'
+import {counter, users} from './saga'
 
 /*
 * 应用异步 sync action
@@ -24,7 +24,7 @@ import saga from './saga'
 * */
 const sagaMiddleware = createSagaMiddleware();// 创建saga
 const logger = createLogger();//创建redux log
-const middlewares = [ thunk, sagaMiddleware, logger ];
+const middlewares = [ thunk, sagaMiddleware, logger];
 
 let enhancer = applyMiddleware(...middlewares);
 /*if (process.env.NODE_ENV === 'development') {
@@ -46,7 +46,8 @@ const rootReducer = combineReducers({
     loginData       :login,
     lodingData      :loding,
     saveRoute       :saveRoute,
-    saga            :saga,
+    counter         :counter,
+    users           :users,
 });
 
 // 导入 rootReducer 创建 stroe
