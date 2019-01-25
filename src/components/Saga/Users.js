@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Table, Pagination, Popconfirm, Button } from 'antd';
 import UserModal from './UserModal';
+import { fetchdata } from '@REDUX/saga'
 
 const mapStateToProps = (state) => {
-    const { list, total, page, loading } = state.users;
+    const { list, total, page } = state.users;
     return {
         list,
         total,
         page,
-        loading,
     };
 };
 
@@ -19,37 +19,42 @@ class Users extends Component{
         super(props);
     }
 
+    UNSAFE_componentWillReceiveProps(nextProps){
+
+    }
+
     componentDidMount(){
         this.props.dispatch({
-            type:'SAVE',
+            type:'USERS_SAVE',
             page:1
         })
     }
 
     deleteHandler = (id) => {
         this.props.dispatch({
-            type: 'users/remove',
+            type: 'USERS_DELETE',
             payload: id,
         });
     };
 
     pageChangeHandler = (page) => {
+        console.log(page);
         this.props.dispatch({
-            pathname: '/users',
+            type: '/PAGE',
             query: { page },
         });
     };
 
     editHandler = (id, values) => {
         this.props.dispatch({
-            type: 'users/patch',
+            type: 'USERS_UPDATE',
             payload: { id, values },
         });
     };
 
     createHandler = (values) => {
         this.props.dispatch({
-            type: 'CREATE',
+            type: 'USERS_CREATE',
             payload: values,
         });
     };
@@ -97,7 +102,7 @@ class Users extends Component{
                         </UserModal>
                     </div>
                     <Table
-                        loading={this.props.loading}
+                        // loading={this.props.loading}
                         columns={columns}
                         dataSource={this.props.list}
                         rowKey={record => record.id}
@@ -107,6 +112,7 @@ class Users extends Component{
                         className="ant-table-pagination"
                         total={this.props.total}
                         current={this.props.page}
+                        pageSize={5}
                         onChange={this.pageChangeHandler}
                     />
                 </div>

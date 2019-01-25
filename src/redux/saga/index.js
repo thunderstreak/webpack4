@@ -1,6 +1,9 @@
 import { delay } from 'redux-saga';
 import { take, fork, call, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects';
 import * as userServices from '@JAVASCRIPTS/services';
+import * as constants from '../constants'
+
+const USERS = Object.keys(constants.Users);
 
 // Our worker Saga: 将执行异步的 increment 任务
 function* incrementAsync() {
@@ -35,19 +38,56 @@ function* watchAndLog() {
 
 
 
-export function* fetch(payload) {
+function* fetchData(payload) {
     // yield put({type: 'LOADING', value: true);
+    console.log(payload);
     const { page } = payload;
     const {data, headers} = yield call(userServices.fetch, {page});
     yield put({type: 'SAVE_USERS', payload: {list: data, total: Number(headers['x-total-count']), page: Number(page)}});
 }
 
-function* create(payload) {
-    yield call(userServices.create, payload);
-    const list = yield select(state => {
-        return state.users.list.unshift(payload)
+function* createData({payload}) {
+    // const { payload } = yield take('CREATE');
+    // yield call(userServices.create, payload);
+
+    const list = yield select(state => state.users.list);
+    let item = Object.assign({},list[0],payload);
+    item.id = Math.round(Math.random() * (30 - 10) + 10);
+    yield put({ type: 'CREATE_USERS', payload: item });
+}
+
+function* updateData({payload}){
+    let { id, values } = payload;
+    yield call(userServices.patch, id, values);
+
+    /*
+    * redux 里面的 reduces 不要做不纯的操作，直接修改 state 上的内容会导致 component 在 connect mapStatesToProps 的时候不会 re render
+    * */
+    let index = 0;
+    let item = yield select(state => {
+        state.users.list.forEach((x, i) => {
+            if(x.id === id){
+                return index = i;
+            }
+        });
+        return Object.assign(state.users.list[index], values);
     });
-    yield put({ type: 'CREATE_USERS', payload: list });
+
+    yield put({ type: 'UPDATE_USERS', payload: item});
+}
+
+
+function* deleteDate({payload}){
+    // yield call(userServices.remove, payload);
+    const list = yield select(state => state.users.list.filter(x => x.id !== payload));
+    yield put({type: 'DELETE_USERS', payload: list });
+}
+
+const USERS_HANDLERS = {
+    USERS_SAVE:fetchData,
+    USERS_CREATE:deleteDate,
+    USERS_UPDATE:updateData,
+    USERS_DELETE:deleteDate,
 }
 
 /*
@@ -56,21 +96,42 @@ function* create(payload) {
 * 和 takeEvery 不同，在任何时刻 takeLatest 只允许一个任务在执行。并且这个任务是最后被启动的那个。 如果已经有一个任务在执行的时候启动另一个相同类型的任务，那之前的这个任务会被自动取消。
 * */
 function* watchComputedAsync() {
-    /*yield select(select => {
-        console.log(select);
-    })*/
-
     yield takeEvery('INCREMENT_ASYNC', incrementAsync);
-    yield takeLatest('DECREMENT_ASYNC', decrementAsync);
-    yield takeLatest('SAVE', fetch);
-    yield takeLatest('CREATE', create);
+    yield takeEvery('DECREMENT_ASYNC', decrementAsync);
+    yield takeLatest('SAVE', fetchData);
+    yield takeLatest('UPDATE', updateData);
+    yield takeLatest('DELETE', deleteDate);
+    yield takeLatest('CREATE', createData);
 }
 
 
 // 注意，我们现在只导出rootSaga,一次启动所有单一入口点
 export default function* rootSaga() {
-    yield all([
+
+    /*yield all([
         watchComputedAsync(),
+        // fork(createData)
         // watchAndLog()
-    ])
+    ])*/
+
+    while (true){
+        // Object.keys(constants.Users)
+
+        const action = yield take(USERS);
+        console.log(action);
+
+        let taskName = USERS.filter(x => x === action.type)[0];
+
+        yield put(action);
+
+        yield call(USERS_HANDLERS[taskName],action);
+
+        /*switch (action.type) {
+            case 'SAVE':
+                yield call(fetchData,action);
+                break;
+            default:
+
+        }*/
+    }
 }

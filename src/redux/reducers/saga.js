@@ -19,16 +19,19 @@ export function counter(state = 0, action) {
 }
 
 export function users(state = null,action) {
-    console.log(action,state);
+    let list;
     switch (action.type) {
         case 'SAVE_USERS':
-            return {...action.payload};
+            return { ...action.payload };
         case 'DELETE_USERS':
-            return { ...state};
+            return { ...state, list:action.payload};
         case 'UPDATE_USERS':
-            return { ...state};
+            list = state.list.map(user => user.id === action.payload.id ? {...user, ...action.payload} : user );
+            return { ...state, list };
         case 'CREATE_USERS':
-            return state;
+            list = [action.payload, ...state.list];
+            console.log({ ...state, list});
+            return { ...state, list};
         default:
             return state
     }
