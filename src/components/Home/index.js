@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd'
 
-import {Route, Switch, Redirect, HashRouter, withRouter, Link} from 'react-router-dom'
+import {Route, Switch, Redirect, HashRouter, withRouter, Link, BrowserRouter} from 'react-router-dom'
 import routers from '@SRC/routers'
 import CustomRoute from '@SRC/routers/CustomRoute'
 import PrivateRoute from '@SRC/routers/PrivateRoute'

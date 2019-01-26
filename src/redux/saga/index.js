@@ -40,10 +40,9 @@ function* watchAndLog() {
 
 function* fetchData(payload) {
     // yield put({type: 'LOADING', value: true);
-    console.log(payload);
     const { page } = payload;
     const {data, headers} = yield call(userServices.fetch, {page});
-    yield put({type: 'SAVE_USERS', payload: {list: data, total: Number(headers['x-total-count']), page: Number(page)}});
+    yield put({type: 'REQUEST_USERS_SAVE', payload: {list: data, total: Number(headers['x-total-count']), page: Number(page)}});
 }
 
 function* createData({payload}) {
@@ -53,7 +52,7 @@ function* createData({payload}) {
     const list = yield select(state => state.users.list);
     let item = Object.assign({},list[0],payload);
     item.id = Math.round(Math.random() * (30 - 10) + 10);
-    yield put({ type: 'CREATE_USERS', payload: item });
+    yield put({ type: 'REQUEST_USERS_CREATE', payload: item });
 }
 
 function* updateData({payload}){
@@ -73,22 +72,28 @@ function* updateData({payload}){
         return Object.assign(state.users.list[index], values);
     });
 
-    yield put({ type: 'UPDATE_USERS', payload: item});
+    yield put({ type: 'REQUEST_USERS_UPDATE', payload: item});
 }
 
 
 function* deleteDate({payload}){
     // yield call(userServices.remove, payload);
     const list = yield select(state => state.users.list.filter(x => x.id !== payload));
-    yield put({type: 'DELETE_USERS', payload: list });
+
+    yield put({type: 'REQUEST_USERS_DELETE', payload: list });
+}
+
+function* lodingDate(payload) {
+    yield put({type: 'REQUEST_USERS_LOADING', payload})
 }
 
 const USERS_HANDLERS = {
-    USERS_SAVE:fetchData,
-    USERS_CREATE:deleteDate,
-    USERS_UPDATE:updateData,
-    USERS_DELETE:deleteDate,
-}
+    HANDLER_REQUEST_USERS_SAVE      :fetchData,
+    HANDLER_REQUEST_USERS_CREATE    :deleteDate,
+    HANDLER_REQUEST_USERS_UPDATE    :updateData,
+    HANDLER_REQUEST_USERS_DELETE    :deleteDate,
+    HANDLER_REQUEST_USERS_LOADING   :lodingDate,
+};
 
 /*
 * takeEvery 允许多个 INCREMENT_ASYNC 实例同时启动
@@ -115,23 +120,12 @@ export default function* rootSaga() {
     ])*/
 
     while (true){
-        // Object.keys(constants.Users)
-
         const action = yield take(USERS);
-        console.log(action);
-
         let taskName = USERS.filter(x => x === action.type)[0];
-
+        console.log(taskName)
         yield put(action);
-
+        yield call(USERS_HANDLERS.HANDLER_REQUEST_USERS_LOADING,{loading: true});
         yield call(USERS_HANDLERS[taskName],action);
-
-        /*switch (action.type) {
-            case 'SAVE':
-                yield call(fetchData,action);
-                break;
-            default:
-
-        }*/
+        yield call(USERS_HANDLERS.HANDLER_REQUEST_USERS_LOADING,{loading: false});
     }
 }

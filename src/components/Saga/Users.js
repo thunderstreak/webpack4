@@ -5,11 +5,12 @@ import UserModal from './UserModal';
 import { fetchdata } from '@REDUX/saga'
 
 const mapStateToProps = (state) => {
-    const { list, total, page } = state.users;
+    const { list, total, page, loading } = state.users;
     return {
         list,
         total,
         page,
+        loading
     };
 };
 
@@ -25,36 +26,35 @@ class Users extends Component{
 
     componentDidMount(){
         this.props.dispatch({
-            type:'USERS_SAVE',
+            type:'HANDLER_REQUEST_USERS_SAVE',
             page:1
         })
     }
 
     deleteHandler = (id) => {
         this.props.dispatch({
-            type: 'USERS_DELETE',
+            type: 'HANDLER_REQUEST_USERS_DELETE',
             payload: id,
         });
     };
 
     pageChangeHandler = (page) => {
-        console.log(page);
         this.props.dispatch({
-            type: '/PAGE',
-            query: { page },
-        });
+            type:'HANDLER_REQUEST_USERS_SAVE',
+            page:page
+        })
     };
 
     editHandler = (id, values) => {
         this.props.dispatch({
-            type: 'USERS_UPDATE',
+            type: 'HANDLER_REQUEST_USERS_UPDATE',
             payload: { id, values },
         });
     };
 
     createHandler = (values) => {
         this.props.dispatch({
-            type: 'USERS_CREATE',
+            type: 'HANDLER_REQUEST_USERS_CREATE',
             payload: values,
         });
     };
@@ -92,7 +92,6 @@ class Users extends Component{
                 ),
             },
         ];
-
         return (
             <div>
                 <div>
@@ -102,7 +101,7 @@ class Users extends Component{
                         </UserModal>
                     </div>
                     <Table
-                        // loading={this.props.loading}
+                        loading={this.props.loading}
                         columns={columns}
                         dataSource={this.props.list}
                         rowKey={record => record.id}
