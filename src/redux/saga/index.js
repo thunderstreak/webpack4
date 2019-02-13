@@ -3,8 +3,6 @@ import { take, fork, call, put, select, takeEvery, takeLatest, all } from 'redux
 import * as userServices from '@JAVASCRIPTS/services';
 import * as constants from '../constants'
 
-const USERS = Object.keys(constants.Users);
-
 // Our worker Saga: 将执行异步的 increment 任务
 function* incrementAsync() {
     yield delay(3000);
@@ -119,11 +117,12 @@ export default function* rootSaga() {
         // watchAndLog()
     ])*/
 
+    const USERS = Object.keys(constants.Users);
+
     while (true){
         const action = yield take(USERS);
         let taskName = USERS.filter(x => x === action.type)[0];
-        console.log(taskName)
-        yield put(action);
+        // yield put(action);
         yield call(USERS_HANDLERS.HANDLER_REQUEST_USERS_LOADING,{loading: true});
         yield call(USERS_HANDLERS[taskName],action);
         yield call(USERS_HANDLERS.HANDLER_REQUEST_USERS_LOADING,{loading: false});

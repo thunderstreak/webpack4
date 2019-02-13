@@ -23,6 +23,10 @@ export default class Nested extends Component{
                 <Link to="/nested/test1">嵌套路由1</Link>
                 <Link to="/nested/test2">嵌套路由2</Link>
                 {this.props.children}
+
+                <div className="margin-box">
+                    <div className="margin-list">1</div>
+                </div>
             </Fragment>
         )
     }

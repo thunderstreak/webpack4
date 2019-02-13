@@ -24,7 +24,7 @@ import {counter, users} from './saga'
 * */
 const sagaMiddleware = createSagaMiddleware();// 创建saga
 const logger = createLogger();//创建redux log
-const middlewares = [ thunk, sagaMiddleware, logger];
+const middlewares = [ thunk, sagaMiddleware, /*logger*/];
 
 let enhancer = applyMiddleware(...middlewares);
 /*if (process.env.NODE_ENV === 'development') {

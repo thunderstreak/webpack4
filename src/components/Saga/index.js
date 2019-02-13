@@ -16,7 +16,7 @@ export default class Saga extends Component{
         super(props);
         this.state = {
             name : 'Saga',
-            value: 0
+            value: 1
         }
     }
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Table, Pagination, Popconfirm, Button } from 'antd';
 import UserModal from './UserModal';
-import { fetchdata } from '@REDUX/saga'
+import '@JAVASCRIPTS/libs/Promise'
 
 const mapStateToProps = (state) => {
     const { list, total, page, loading } = state.users;
@@ -18,6 +18,10 @@ const mapStateToProps = (state) => {
 class Users extends Component{
     constructor(props){
         super(props);
+        this.state = {
+            page : 1,
+        };
+        this.page = 1;
     }
 
     UNSAFE_componentWillReceiveProps(nextProps){

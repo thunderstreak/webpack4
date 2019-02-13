@@ -29,7 +29,7 @@ export default class Portals extends Component{
     render(){
         return(
             <Fragment>
-                <div onClick={this.showDialog}>showDialog{String(this.state.show)}</div>
+                <div onClick={this.showDialog}>showDialog {String(this.state.show)}</div>
                 <Dialog onShow={this.showDialog} show={this.state.show}/>
 
                 <button onClick={this.handleClick1()}>click 1</button>

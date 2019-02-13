@@ -20,7 +20,8 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: 'babel-loader',
+                use: ['babel-loader','react-hot-loader/webpack'],
+                // use: 'babel-loader',
                 // query: {compact: false}
             },
             {
