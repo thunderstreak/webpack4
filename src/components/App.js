@@ -1,7 +1,9 @@
 import React,{Component,Fragment} from 'react'
-import { BrowserRouter as Router, Route} from 'react-router-dom'
+import { BrowserRouter as Router, HashRouter, Route, Switch, Redirect} from 'react-router-dom'
 import Home from './Home'
 import { hot } from 'react-hot-loader/root'
+
+
 
 /*class App extends Component{
     constructor(props){
@@ -22,9 +24,32 @@ import { hot } from 'react-hot-loader/root'
     }
 }*/
 
-const App = () => (
-    <Router>
+/*<Router>
         <Route exact path="/" component={Home}/>
-    </Router>
+    </Router>*/
+
+import routers from '@SRC/routers'
+import MultiRouter from './MultiRouter'
+import Mulits from './MultiRouter/Multis'
+import MulitsA from './MultiRouter/MultisPageA'
+import MulitsAA from './MultiRouter/MultisPageA-A'
+
+const App = () => (
+    <HashRouter>
+        <MultiRouter name="MultiRouter" type="props">
+            <Switch>
+                <Route path="/login" component={routers.Login}/>
+                <Route path="/unknownPage" component={routers.unknownPage}/>
+                <Mulits>
+                    <Switch>
+                        <Route exact path="/mulits/pageA" component={MulitsA} />
+                        <Route path="/mulits/pageAA" component={MulitsAA} />
+                        <Redirect from="*" to='/unknownPage'/>
+                    </Switch>
+                </Mulits>
+                {/*<Redirect from="*" to='/unknownPage'/>*/}
+            </Switch>
+        </MultiRouter>
+    </HashRouter>
 );
 export default hot(App)

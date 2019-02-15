@@ -111,6 +111,7 @@ function* watchComputedAsync() {
 // 注意，我们现在只导出rootSaga,一次启动所有单一入口点
 export default function* rootSaga() {
 
+    // all 用于同时启动指定 task
     /*yield all([
         watchComputedAsync(),
         // fork(createData)

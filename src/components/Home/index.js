@@ -57,7 +57,7 @@ export default class ContentComponent extends Component{
             )
         }else{
             return(
-                <HashRouter>
+                <BrowserRouter>
                     <Layout>
                         <HeaderComponent/>
                         <Layout>
@@ -104,7 +104,7 @@ export default class ContentComponent extends Component{
                             </Layout>
                         </Layout>
                     </Layout>
-                </HashRouter>
+                </BrowserRouter>
             )
         }
 

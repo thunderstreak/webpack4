@@ -102,6 +102,11 @@ export default {
         loading :Loading,
         delay   : 300
     }),
+    MultiRouter:Loadable({
+        loader  :() => import('@COMPONENTS/MultiRouter'),
+        loading :Loading,
+        delay   : 300
+    }),
 
 };
 
