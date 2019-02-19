@@ -43,6 +43,7 @@ export default class SiderMenu extends Component{
                 ],
                 sub4:[
                     { type:'sub4', id:'13',name:'saga', path:'/saga' },
+                    { type:'sub4', id:'14',name:'form', path:'/form' },
                 ],
             },
             openKeys: ['sub1'],

@@ -34,7 +34,7 @@ import Mulits from './MultiRouter/Multis'
 import MulitsA from './MultiRouter/MultisPageA'
 import MulitsAA from './MultiRouter/MultisPageA-A'
 
-const App = () => (
+/*const App = () => (
     <HashRouter>
         <MultiRouter name="MultiRouter" type="props">
             <Switch>
@@ -47,9 +47,16 @@ const App = () => (
                         <Redirect from="*" to='/unknownPage'/>
                     </Switch>
                 </Mulits>
-                {/*<Redirect from="*" to='/unknownPage'/>*/}
+                {/!*<Redirect from="*" to='/unknownPage'/>*!/}
             </Switch>
         </MultiRouter>
     </HashRouter>
-);
+);*/
+
+const App = () => (
+    <Router>
+        <Route exact path="/" component={Home}/>
+    </Router>
+)
+
 export default hot(App)

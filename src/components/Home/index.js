@@ -57,7 +57,7 @@ export default class ContentComponent extends Component{
             )
         }else{
             return(
-                <BrowserRouter>
+                <HashRouter>
                     <Layout>
                         <HeaderComponent/>
                         <Layout>
@@ -91,6 +91,7 @@ export default class ContentComponent extends Component{
                                         <CustomRoute exact path="/authority/:id" component={routers.Authority} title="Authority"/>
                                         <Route exact path="/poetry" component={withRouter(routers.Poetry)}/>
                                         <Route exact path="/saga" component={withRouter(routers.Saga)}/>
+                                        <Route exact path="/form" component={routers.Form}/>
                                         {/*嵌套路由*/}
                                         <Route path="/nested" render={({history,location,match}) => (
                                             <routers.Nested history={history} location={location} match={match}>
@@ -104,7 +105,7 @@ export default class ContentComponent extends Component{
                             </Layout>
                         </Layout>
                     </Layout>
-                </BrowserRouter>
+                </HashRouter>
             )
         }
 

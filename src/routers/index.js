@@ -107,6 +107,11 @@ export default {
         loading :Loading,
         delay   : 300
     }),
+    Form:Loadable({
+        loader  :() => import('@COMPONENTS/Form'),
+        loading :Loading,
+        delay   : 300
+    }),
 
 };
 
