@@ -34,9 +34,9 @@ const libs = {
 
     dobbleSort: (arr) => {
         for (let i = 0; i < arr.length - 1; i++) {
-            for (let j = 0; j < arr.length - i - 1; j++) {
+            for (let j = i; j < arr.length - 1; j++) {
                 if (arr[j] > arr[j + 1]) {
-                    var temporary = arr[j];
+                    let temporary = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temporary;
                 }
@@ -57,7 +57,7 @@ const libs = {
         let pivotIdx = Math.floor(arr.length / 2);
         let pivot = arr.splice(pivotIdx, 1)[0];
 
-        let [left, right] = [[], []]
+        let [left, right] = [[], []];
 
         for (let i = 0; i < arr.length; i++) {
             if (arr[i] < pivot) {
@@ -102,7 +102,7 @@ const libs = {
         let bes = 0;
         while (bes <= len) {
             let m = Math.floor((len + bes) / 2);
-            if (data[m] == item) {
+            if (data[m] === item) {
                 return m;
             }
             if (item > data[m]) {
@@ -121,20 +121,11 @@ const libs = {
      */
 
     clone: (arg) => {
-        let o = (arg.constructor === Array && arg instanceof Array && Object.prototype.toString.call((arg)) == '[object Array]') ? [] : {};
+        let o = (arg.constructor === Array && arg instanceof Array && Object.prototype.toString.call((arg)) === '[object Array]') ? [] : {};
         for (let e in arg) {
             o[e] = arg.typeof === 'object' ? libs.clone() : arg[e];
         }
         return o;
-    },
-
-    /* deepCopy深拷贝
-     */
-    deepCopy: (arg) => {
-        let obj = {};
-        obj = JSON.parse(JSON.stringify(arg));
-
-        return obj;
     },
 
     /**
@@ -181,7 +172,7 @@ const libs = {
         ctx.lineCap = "round";
         // 绘制底圆
         ctx.beginPath();
-        if (isTrueOrFalse == true) {
+        if (isTrueOrFalse) {
             ctx.arc(
                 setData.x,
                 setData.y,
@@ -190,12 +181,12 @@ const libs = {
                 2.2 * Math.PI,//结束角
                 false//False = 顺时针，true = 逆时针。
             );//绘制圆弧进度条所需的半径总共1.5PI
-        } else if (isTrueOrFalse == false) {
+        } else{
             ctx.arc(
                 setData.x,
                 setData.y,
                 setData.r,
-                0 * Math.PI,//开始角
+                0,//开始角
                 2 * Math.PI,//结束角
                 false//False = 顺时针，true = 逆时针。
             );//绘制圆弧进度条所需的半径总共1.5PI
@@ -205,7 +196,7 @@ const libs = {
         ctx.stroke();
         ctx.closePath();
 
-        if (porgress > 100 || porgress == 0) {
+        if (porgress > 100 || porgress === 0) {
             return
         }
         // 绘制进度圆
@@ -261,14 +252,14 @@ const libs = {
      *返回一个promise对象,可以使用.then来处理response参数
      */
     Fetch: (promise, type) => {
-        if (!promise && typeof promise !== 'object' && JSON.stringify(promise) != '{}') return 'arguments error!';
+        if (!promise && typeof promise !== 'object' && JSON.stringify(promise) !== '{}') return 'arguments error!';
         return new Promise((resolve, reject) => {
             fetch(promise).then((response) => {
-                if (response.status == 200) {
+                if (response.status === 200) {
                     // console.log(response.headers.get('Home-Type'));
                     // console.log(response.headers.get('Date'));
                     // resolve(response.json());
-                    (type && type == 'json') ? resolve(response.json()) : resolve(response);
+                    (type && type === 'json') ? resolve(response.json()) : resolve(response);
                 } else {
                     reject(response);
                 }
@@ -330,11 +321,11 @@ const libs = {
         let max = [(year + sizeDate), month, day];
         let min = [(year - sizeDate), month, day];
 
-        if (strDate == 'cur') {
+        if (strDate === 'cur') {
             return cur;
-        } else if (strDate == 'max') {
+        } else if (strDate === 'max') {
             return max;
-        } else if (strDate == 'min') {
+        } else if (strDate === 'min') {
             return min;
         } else {
             return year + splice1 + (month < 10 ? ('0' + month) : month) + splice1 + (day < 10 ? ('0' + day) : day) + " " + hours + splice2 + minutes + splice2 + seconds;
@@ -368,7 +359,7 @@ const libs = {
     getDaysInMonth: (year, month) => {
         //parseInt(number,type)这个函数后面如果不跟第2个参数来表示进制的话，默认是10进制。
         month = parseInt(month, 10);
-        var temp = new Date(year, month, 0);
+        let temp = new Date(year, month, 0);
         return temp.getDate();
     },
 
@@ -388,9 +379,9 @@ const libs = {
             if (week) {
                 let W = new Date(times).getDay();
                 let D = weeks[new Date(times).getDay()];
-                if (W == weekday) {
+                if (W === weekday) {
                     arrDate.push('今天' + D);
-                } else if (W == (weekday + 1)) {
+                } else if (W === (weekday + 1)) {
                     arrDate.push('明天' + D);
                 } else {
                     arrDate.push((nextDate.getMonth() + 1) + "-" + nextDate.getDate() + D);
@@ -407,32 +398,32 @@ const libs = {
      **/
     getSevenDay: (day) => {
         let weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
-        var today = new Date();
+        let today = new Date();
 
-        var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
+        let targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
 
         today.setTime(targetday_milliseconds); //注意，这行是关键代码
 
-        var tYear = today.getFullYear();
-        var tMonth = today.getMonth();
-        var tDate = today.getDate();
+        let tYear = today.getFullYear();
+        let tMonth = today.getMonth();
+        let tDate = today.getDate();
 
         tMonth = doHandleMonth(tMonth + 1);
         tDate = doHandleMonth(tDate);
 
         let weekday = today.getDay();//周几
 
-        if (day == 0) {//当天
+        if (day === 0) {//当天
             return tYear + "-" + tMonth + "-" + tDate + '今天';
-        } else if (day == 1) {//明天
+        } else if (day === 1) {//明天
             return tYear + "-" + tMonth + "-" + tDate + '明天';
         } else {
             return tYear + "-" + tMonth + "-" + tDate + weeks[weekday];
         }
 
         function doHandleMonth(month) {
-            var m = month;
-            if (month.toString().length == 1) {
+            let m = month;
+            if (month.toString().length === 1) {
                 m = "0" + month;
             }
             return m;
@@ -532,7 +523,7 @@ const libs = {
                 if (el.offsetHeight < el.scrollHeight)
                     evt._isScroller = true;
             });
-        }
+        };
 
         overscroll(document.querySelector(className));
         document.body.addEventListener('touchmove', function (evt) {
@@ -571,7 +562,7 @@ const libs = {
         let options = {
             enableHighAccuracy: true,
             maximumAge        : 1000
-        }
+        };
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.onLocationSuccess, this.onLocationError, options);
         } else {
@@ -612,91 +603,42 @@ const libs = {
     },
 
     /**
-     *获取百度地图定位返回经纬度
-     *
-     */
-    getBMapLocation: (callback) => {
-        let point = new BMap.Point();
-        let geolocation = new BMap.Geolocation();
-        geolocation.getCurrentPosition(function (r) {
-            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-                // console.log(r.point);
-                callback && callback(r.point)
-            } else {
-                console.log('failed' + this.getStatus());
-            }
-        }, {enableHighAccuracy: true});
-    },
-
-    /**
-     *返回校验对象里的第一条error msg
-     *obj[Object.keys(obj).sort((a,b)=>a-b)[0]]
-     *Object.keys(obj): 输出 obj 里所有 key 组成的数组；
-     *.sort((a,b)=>a-b): 从小到大排序
-     *[0]: 输出第一个的值。
-     *以上操作找出 obj 中最小的 key 的值 (s)
-     *obj[s]: 取第一个
-     *
-     */
-    errorMsg: (obj) => {
-        let len = Object.keys(obj).sort((a, b) => a - b)[0];
-        return obj[len][obj[len].length - 1];
-
-    },
-
-    /**
      *判断是否是微信浏览器
      **/
     isWeChat: () => {
         let ua = navigator.userAgent.toLowerCase();
-        if (libs.isMobile() && ua.match(/MicroMessenger/i) == "micromessenger") {
-            return true;
-        } else {
-            return false;
-        }
+        return (libs.isMobile() && ua.match(/MicroMessenger/i) === "micromessenger")
     },
 
     /**
      *判断是否是移动端浏览器
      **/
     isMobile: () => {
-        if (navigator.userAgent.match(/Android/i)
+        return (navigator.userAgent.match(/Android/i)
             || navigator.userAgent.match(/webOS/i)
             || navigator.userAgent.match(/iPhone/i)
             || navigator.userAgent.match(/iPad/i)
             || navigator.userAgent.match(/iPod/i)
             || navigator.userAgent.match(/BlackBerry/i)
             || navigator.userAgent.match(/Windows Phone/i)
-        ) {
-            return true;
-        } else {
-            return false;
-        }
+        )
     },
 
     /**
      *判断android
      **/
     isAndroid: () => {
-        if (navigator.userAgent.match(/Android/i)) {
-            return true;
-        } else {
-            return false;
-        }
+        return navigator.userAgent.match(/Android/i);
     },
 
     /**
      *判断ios
      **/
     isIos: () => {
-        if (navigator.userAgent.match(/iPhone/i)
+        return (navigator.userAgent.match(/iPhone/i)
             || navigator.userAgent.match(/iPad/i)
             || navigator.userAgent.match(/iPod/i)
-        ) {
-            return true;
-        } else {
-            return false;
-        }
+        )
     },
 
     /**
@@ -708,7 +650,7 @@ const libs = {
         //遍历匹配
         for (let i = 0; i < arrcookie.length; i++) {
             let arr = arrcookie[i].split("=");
-            if (arr[0] == name) {
+            if (arr[0] === name) {
                 return arr[1];
             }
         }
@@ -789,6 +731,7 @@ const libs = {
 
         down();
     },
+
     /**
      *上传图片进行压缩
      *@param:e(target) 上传文件的事件对象
@@ -802,7 +745,6 @@ const libs = {
             return; //确保文件是图片
         }
 
-        let self = this;
         // 创建一个reader
         let reader = new FileReader();
         // 将图片2将转成 base64 格式
@@ -828,7 +770,7 @@ const libs = {
                     //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
                     let ratio;
                     if ((ratio = width * height / 4000000) > 1) {
-                        console.log("大于400万像素")
+                        console.log("大于400万像素");
                         ratio = Math.sqrt(ratio);
                         width /= ratio;
                         height /= ratio;
@@ -871,11 +813,12 @@ const libs = {
 
                 }
             }
-        }
+        };
         reader.onerror = function (e) {
             console.log("error " + e.target.error.code + " \n\niPhone iOS8 Permissions Error.");
         }
     },
+
     /**
      * [once fn]
      * @param  {Function} fn      [Function]
@@ -900,16 +843,19 @@ const libs = {
      */
     getUrlParams(url){
         return new Promise((resolve, reject) => {
-            let error = {msg:'Authorization parameter error'}
+            let error = {msg:'Authorization parameter error'};
             // 获取url参数
             let paramsStr = url.substring(url.indexOf('?') + 1,url.length).split('&');
-
-            let params = {};
-            for (let i = 0; i < paramsStr.length; i++) {
-                let variable = paramsStr[i].split('=');
-                params[variable[0]] = variable[1];
+            if(paramsStr.length){
+                let params = {};
+                for (let i = 0; i < paramsStr.length; i++) {
+                    let variable = paramsStr[i].split('=');
+                    params[variable[0]] = variable[1];
+                }
+                resolve(params);
+            }else{
+                reject(error)
             }
-            resolve(params);
         })
     },
 
@@ -926,7 +872,8 @@ const libs = {
         document.head.appendChild(script);
         script.onerror = e => {
             console.log(e);
-        }
+        };
+
         if(script.readyState){
             script.onreadystatechange = function(){
                 if(script.readyState === "loaded" || script.readyState === "complete"){
@@ -967,8 +914,30 @@ const libs = {
             lat: bd_lat,
             lng: bd_lng
         }
-    }
+    },
 
+    /*
+    * Partail偏函数
+    * 判断数据类型
+    * @params:type(String)
+    * @params:obj(Object)
+    * Call Method: isType('String')('str')
+    * */
+    isType : type => obj => toString.call(obj) === `[object ${type}]`,
+
+    /*
+    * curry柯里化函数
+    * Call Method: meth = curry((a, b) => a + b); meth(1)(2)
+    * */
+    curry : function (fn) {
+        /*function _c (restNum, argsList) {
+            return restNum === 0 ? fn.apply(null, argsList) : function (x) {
+                return _c(restNum - 1, argsList.concat(x))
+            }
+        }*/
+        const _c = (restNum, argsList) => restNum === 0 ? fn(...argsList) : x => _c(restNum - 1, [...argsList, x]);
+        return _c(fn.length, [])
+    }
 };
 
 export default libs;

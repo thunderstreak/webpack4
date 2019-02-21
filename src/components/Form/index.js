@@ -2,6 +2,9 @@ import React,{Component,Fragment} from 'react'
 import {Form, Icon, Input, Button} from 'antd'
 import Modal from '@JAVASCRIPTS/components/Modal'
 
+import tools,{isType} from '@TOOLS/utils'
+
+console.log(tools);
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
@@ -20,7 +23,13 @@ class Froms extends Component{
     }
 
     showModal() {
-        this.setState({ visible: true })
+        this.setState((prevState) => {
+            console.log(prevState.visible);
+            return {
+                visible:true
+            }
+        })
+        console.log(this.state.visible);
     }
 
     closeModal() {
