@@ -929,7 +929,7 @@ const libs = {
     * curry柯里化函数
     * Call Method: meth = curry((a, b) => a + b); meth(1)(2)
     * */
-    curry : function (fn) {
+    curry : (fn) => {
         /*function _c (restNum, argsList) {
             return restNum === 0 ? fn.apply(null, argsList) : function (x) {
                 return _c(restNum - 1, argsList.concat(x))
