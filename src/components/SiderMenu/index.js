@@ -6,12 +6,12 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd'
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer} = Layout;
 
-const mapStateToProps = (state) => {
+/*const mapStateToProps = (state) => {
     return {
         hash:state.saveRoute.hashUrl
     }
 };
-@connect(mapStateToProps)
+@connect(mapStateToProps)*/
 export default class SiderMenu extends Component{
     static displayName = "HOME";
     static propTypes = {
@@ -49,10 +49,12 @@ export default class SiderMenu extends Component{
             openKeys: ['sub1'],
             selectedKeys:[],
         };
-        // console.log(this.props.hash);
+
+        this.handerMenuOpenChange = this.handerMenuOpenChange.bind(this);
+        this.handerMenuItemChange = this.handerMenuItemChange.bind(this);
     }
 
-    handerMenuItemChange = (item) => {
+    handerMenuItemChange (item) {
         for (let key in this.state.router) {
             if(this.state.router.hasOwnProperty(key)){
                 let k = this.state.router[key].find(v => item.key === v.id);
@@ -66,7 +68,7 @@ export default class SiderMenu extends Component{
 
 
     // 收起其他展开的所有菜单
-    handerMenuOpenChange = (openKeys) => {
+    handerMenuOpenChange (openKeys) {
         // console.log(openKeys); //["sub1", "sub3"]
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
         // console.log(latestOpenKey);
@@ -94,31 +96,36 @@ export default class SiderMenu extends Component{
         }
     }
 
+    componentDidMount(){
+        let r = this.filterHashUrltoState(this.props.hash);
+        r && this.setState({selectedKeys:[r.id],openKeys:[r.type]});
+    }
+
     /*
     * 在17.0.0版本之前不会废弃 componentWillReceiveProps 这个生命周期，但会推荐使用 getDerivedStateFromProps 静态方法来做更新处理
     * 组件实例化后和接受新属性时将会调用,返回一个对象来更新状态，或者返回null来表明新属性不需要更新任何状态。
     * */
-    /*static getDerivedStateFromProps(nextProps, prevState){
-        console.log(prevState.openKeys);
-        if(nextProps.hash){
+    static getDerivedStateFromProps(nextProps, prevState){
+        // console.log(prevState);
+        /*if(nextProps.hash){
             let router = prevState.router;
             for(let key in router){
                 if(router.hasOwnProperty(key)){
                     for(let val of router[key]){
                         if(nextProps.hash.indexOf(val.name) !== -1){
-                            return {selectedKeys:[val.id],openKeys:[val.type]};
+                            return { selectedKeys:[val.id], openKeys:[val.type] };
                         }
                     }
                 }
             }
-        }
+        }*/
         return null;
-    }*/
-    componentWillReceiveProps(nextProps){
-        // console.log(nextProps);
+    }
+    /*componentWillReceiveProps(nextProps){
+        console.log(nextProps);
         let r = this.filterHashUrltoState(nextProps.hash);
         r && this.setState({selectedKeys:[r.id],openKeys:[r.type]});
-    }
+    }*/
 
     render(){
         let dashBoard = Object.keys(this.state.router).map(key => {

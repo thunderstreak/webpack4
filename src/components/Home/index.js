@@ -46,7 +46,7 @@ export default class ContentComponent extends Component{
 
     render(){
         let hashUrl = this.props.location.hash.replace('#','');
-        console.log(hashUrl);
+        // console.log(hashUrl);
         if(hashUrl.indexOf('login') !== -1){
             return (
                 <HashRouter>

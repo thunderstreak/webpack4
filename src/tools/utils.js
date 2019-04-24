@@ -123,7 +123,9 @@ const libs = {
     clone: (arg) => {
         let o = (arg.constructor === Array && arg instanceof Array && Object.prototype.toString.call((arg)) === '[object Array]') ? [] : {};
         for (let e in arg) {
-            o[e] = arg.typeof === 'object' ? libs.clone() : arg[e];
+            if(arg.hasOwnProperty(e)){
+                o[e] = arg.typeof === 'object' ? libs.clone() : arg[e];
+            }
         }
         return o;
     },
@@ -160,13 +162,12 @@ const libs = {
         canvas.style.width = canvas.width / 2 + 'px';
         canvas.style.height = canvas.height / 2 + 'px';
 
-        let res;// 绘制百分比所需的半径
         let lineWidth = CanvasWidth / 12.5;// 绘制圆弧线宽
         let setData = {
             x: canvas.width / 2,
             y: canvas.height / 2,
             r: (canvas.width - lineWidth - 2) / 2// 减2控制绘制的圆弧与canvas的边界紧密贴合，防止出现canvas边界出现模糊
-        }
+        };
 
         let ctx = canvas.getContext('2d');
         ctx.lineCap = "round";
