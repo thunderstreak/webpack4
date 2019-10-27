@@ -12,7 +12,7 @@ export default class Portals extends Component {
         };
 
         this.showDialog = this.showDialog.bind(this);
-        // this.handleClick2 = this.handleClick1.bind(this);
+        this.handleClick2 = this.handleClick1.bind(this);
     }
 
     componentDidMount() {
@@ -32,7 +32,6 @@ export default class Portals extends Component {
             // console.log(this.state.val);
         })
 
-
     }
 
 
@@ -47,7 +46,11 @@ export default class Portals extends Component {
         console.log('handleClick1' + this.name);
     }
 
-    // handleClick3 = () => console.log('handleClick3' + this.name);
+    handleClick5 = () => {
+        console.log(5)
+    };
+
+    handleClick3 = () => console.log('handleClick3' + this.name);
 
     render() {
         return (
@@ -59,9 +62,8 @@ export default class Portals extends Component {
                 <button onClick={this.handleClick1}>click 2</button>
                 <button onClick={this.handleClick2}>click 3</button>
                 <button onClick={this.handleClick3}>click 4</button>
+                <button onClick={this.handleClick5}>click 5</button>
             </Fragment>
         )
     }
 }
-
-

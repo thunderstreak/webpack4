@@ -81,7 +81,7 @@ function* deleteDate({payload}){
     yield put({type: 'REQUEST_USERS_DELETE', payload: list });
 }
 
-function* lodingDate(payload) {
+function* loadingDate(payload) {
     yield put({type: 'REQUEST_USERS_LOADING', payload})
 }
 
@@ -90,7 +90,7 @@ const USERS_HANDLERS = {
     HANDLER_REQUEST_USERS_CREATE    :deleteDate,
     HANDLER_REQUEST_USERS_UPDATE    :updateData,
     HANDLER_REQUEST_USERS_DELETE    :deleteDate,
-    HANDLER_REQUEST_USERS_LOADING   :lodingDate,
+    HANDLER_REQUEST_USERS_LOADING   :loadingDate,
 };
 
 /*

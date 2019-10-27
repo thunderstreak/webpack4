@@ -26,13 +26,13 @@ export default class Modal extends Component {
 
     closeModal() {
         const { onClose } = this.props;
-        onClose && onClose();
+        onClose && onClose(false);
         this.setState({ visible: false })
     }
 
     confirm() {
         const { confirm } = this.props;
-        confirm && confirm();
+        confirm && confirm(false);
         this.setState({ visible: false })
     }
 
@@ -43,6 +43,7 @@ export default class Modal extends Component {
     render() {
         const { visible } = this.state;
         const { title, children } = this.props;
+        // console.log(visible)
         return (
             <NewPortal>
                 <Transition visible={visible} transitionName="modal" enterActiveTimeout={200} enterEndTimeout={100} leaveActiveTimeout={100} leaveEndTimeout={200}>

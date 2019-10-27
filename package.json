@@ -2,14 +2,15 @@
     "name": "react-webpack4",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "main.js",
     "scripts": {
         "dev": "set NODE_ENV=development&& webpack-dev-server --config config/webpack.config.js",
         "build": "set NODE_ENV=production&& webpack -p --config config/webpack.config.js",
         "dev4": "webpack-dev-server --mode development --config config/webpack.config.js",
         "build4": "webpack --mode=production -p --config config/webpack.config.js",
         "dll": "webpack --mode=production --config config/webpack.dll.config.js",
-        "start": "node ./config/server.js"
+        "start": "node ./config/server.js",
+        "electron-start": "electron ."
     },
     "author": "",
     "license": "ISC",
@@ -25,6 +26,7 @@
         "babel-preset-react": "^6.24.1",
         "babel-preset-stage-2": "^6.24.1",
         "clean-webpack-plugin": "^0.1.19",
+        "co": "^4.6.0",
         "css-loader": "^1.0.0",
         "file-loader": "^2.0.0",
         "friendly-errors-webpack-plugin": "^1.7.0",
@@ -52,6 +54,7 @@
     },
     "dependencies": {
         "antd": "^3.15.0",
+        "electron": "^5.0.6",
         "prop-types": "^15.6.2",
         "react": "^16.8.5",
         "react-dom": "^16.8.5",

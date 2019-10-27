@@ -2,9 +2,6 @@ import React,{Component,Fragment} from 'react'
 import {Form, Icon, Input, Button} from 'antd'
 import Modal from '@JAVASCRIPTS/components/Modal'
 
-import tools,{isType} from '@TOOLS/utils'
-
-console.log(tools);
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
@@ -32,11 +29,13 @@ class Froms extends Component{
         console.log(this.state.visible);
     }
 
-    closeModal() {
+    closeModal(data) {
+        this.setState({visible: data})
         console.log('我是onClose回调')
     }
 
-    confirm() {
+    confirm(data) {
+        this.setState({visible: data})
         console.log('我是confirm回调')
     }
 
@@ -63,7 +62,7 @@ class Froms extends Component{
 
         return(
             <Fragment>
-                {this.state.name}
+                {visible.toString()}13212
                 <Form layout="inline" onSubmit={this.handleSubmit}>
                     <Form.Item validateStatus={userNameError ? 'error' : ''} help={userNameError || ''} >
                         {

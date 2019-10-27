@@ -33,7 +33,7 @@ export default class Themes extends Component{
                 <div>{this.state.name}</div>
                 <ThemeContext.Provider value={this.state.theme}>
                     {/*<Toolbar changeTheme={this.toggleTheme} />*/}
-                    <ThemedButton onClick={this.toggleTheme}>Change Theme</ThemedButton>
+                    <ThemedButton onClick={this.toggleTheme}>Change Theme super</ThemedButton>
                 </ThemeContext.Provider>
                 <section>
                     <ThemedButton />

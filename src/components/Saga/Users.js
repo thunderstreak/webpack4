@@ -21,12 +21,15 @@ class Users extends Component{
         this.state = {
             page : 1,
         };
-        this.page = 1;
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps){
+    // static getDerivedStateFromProps(props, state){
+    //     console.log(props, state)
+    // }
 
-    }
+    // UNSAFE_componentWillReceiveProps(nextProps){
+    //
+    // }
 
     componentDidMount(){
         this.props.dispatch({
@@ -109,7 +112,7 @@ class Users extends Component{
                         columns={columns}
                         dataSource={this.props.list}
                         rowKey={record => record.id}
-                        pagination={false}
+                        pagination={true}
                     />
                     <Pagination
                         className="ant-table-pagination"
@@ -118,6 +121,7 @@ class Users extends Component{
                         pageSize={5}
                         onChange={this.pageChangeHandler}
                     />
+                    {this.props.total}
                 </div>
             </div>
         );
