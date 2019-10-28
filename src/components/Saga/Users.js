@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Table, Pagination, Popconfirm, Button } from 'antd';
 import UserModal from './UserModal';
-import '@JAVASCRIPTS/libs/Promise'
+// import '@JAVASCRIPTS/libs/Promise'
 
 const mapStateToProps = (state) => {
     const { list, total, page, loading } = state.users;

@@ -222,6 +222,29 @@ for (let [key, value] of iterEntries(myObj)) {
     console.log(key, value);// foo 3  bar 7
 }*/
 
+/*function* gen(x){
+    let y = yield x + 2;
+    return y;
+}
+
+let g = gen(1);
+console.log(g.next()); // { value: 3, done: false }
+console.log(g.next(2)); // { value: 2, done: true }*/
+
+
+/*function* gen(x){
+    try {
+        let y = yield x + 2;
+    } catch (e){
+        console.log(e);
+    }
+    return y;
+}
+
+let g = gen(1);
+g.next();
+g.throw('出错了');*/
+
 /*
 function* gen(){
     let url = 'https://api.github.com/users/github';
