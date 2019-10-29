@@ -30,7 +30,38 @@ class Users extends Component{
     // UNSAFE_componentWillReceiveProps(nextProps){
     //
     // }
-
+    columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+            render: text => <a href="">{text}</a>,
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+            key: 'email',
+        },
+        {
+            title: 'Website',
+            dataIndex: 'website',
+            key: 'website',
+        },
+        {
+            title: 'Operation',
+            key: 'operation',
+            render: (text, record) => (
+                <span>
+                        <UserModal record={record} onOk={this.editHandler.bind(null, record.id)}>
+                            <a>Edit</a>
+                        </UserModal>
+                        <Popconfirm title="Confirm to delete?" onConfirm={this.deleteHandler.bind(null, record.id)}>
+                            <a href="">Delete</a>
+                        </Popconfirm>
+                    </span>
+            ),
+        },
+    ];
     componentDidMount(){
         this.props.dispatch({
             type:'HANDLER_REQUEST_USERS_SAVE',
@@ -67,38 +98,8 @@ class Users extends Component{
     };
 
     render(){
-        const columns = [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                key: 'name',
-                render: text => <a href="">{text}</a>,
-            },
-            {
-                title: 'Email',
-                dataIndex: 'email',
-                key: 'email',
-            },
-            {
-                title: 'Website',
-                dataIndex: 'website',
-                key: 'website',
-            },
-            {
-                title: 'Operation',
-                key: 'operation',
-                render: (text, record) => (
-                    <span>
-                        <UserModal record={record} onOk={this.editHandler.bind(null, record.id)}>
-                            <a>Edit</a>
-                        </UserModal>
-                        <Popconfirm title="Confirm to delete?" onConfirm={this.deleteHandler.bind(null, record.id)}>
-                            <a href="">Delete</a>
-                        </Popconfirm>
-                    </span>
-                ),
-            },
-        ];
+        const { loading, list, total, page } = this.props
+        const { columns } = this
         return (
             <div>
                 <div>
@@ -108,20 +109,20 @@ class Users extends Component{
                         </UserModal>
                     </div>
                     <Table
-                        loading={this.props.loading}
+                        loading={loading}
                         columns={columns}
-                        dataSource={this.props.list}
+                        dataSource={list}
                         rowKey={record => record.id}
                         pagination={true}
                     />
                     <Pagination
                         className="ant-table-pagination"
-                        total={this.props.total}
-                        current={this.props.page}
+                        total={total}
+                        current={page}
                         pageSize={5}
                         onChange={this.pageChangeHandler}
                     />
-                    {this.props.total}
+                    {total}
                 </div>
             </div>
         );

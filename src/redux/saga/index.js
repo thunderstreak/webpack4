@@ -5,11 +5,11 @@ import * as constants from '../constants'
 
 // Our worker Saga: 将执行异步的 increment 任务
 function* incrementAsync() {
-    yield delay(3000);
+    yield delay(1000);
     yield put({ type: 'INCREMENT', value:1 })
 }
 function* decrementAsync() {
-    yield delay(3000);
+    yield delay(1000);
     yield put({ type: 'DECREMENT', value:1})
 }
 
@@ -87,7 +87,7 @@ function* loadingDate(payload) {
 
 const USERS_HANDLERS = {
     HANDLER_REQUEST_USERS_SAVE      :fetchData,
-    HANDLER_REQUEST_USERS_CREATE    :deleteDate,
+    HANDLER_REQUEST_USERS_CREATE    :createData,
     HANDLER_REQUEST_USERS_UPDATE    :updateData,
     HANDLER_REQUEST_USERS_DELETE    :deleteDate,
     HANDLER_REQUEST_USERS_LOADING   :loadingDate,
@@ -121,6 +121,8 @@ export default function* rootSaga() {
     const USERS = Object.keys(constants.Users);
 
     while (true){
+        yield takeEvery('INCREMENT_ASYNC', incrementAsync);
+        yield takeEvery('DECREMENT_ASYNC', decrementAsync);
         const action = yield take(USERS);
         let taskName = USERS.filter(x => x === action.type)[0];
         // yield put(action);
