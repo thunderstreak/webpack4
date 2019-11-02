@@ -117,12 +117,13 @@ export default function* rootSaga() {
         // fork(createData)
         // watchAndLog()
     ])*/
+    yield takeEvery('INCREMENT_ASYNC', incrementAsync);
+    yield takeEvery('DECREMENT_ASYNC', decrementAsync);
 
     const USERS = Object.keys(constants.Users);
 
     while (true){
-        yield takeEvery('INCREMENT_ASYNC', incrementAsync);
-        yield takeEvery('DECREMENT_ASYNC', decrementAsync);
+
         const action = yield take(USERS);
         let taskName = USERS.filter(x => x === action.type)[0];
         // yield put(action);

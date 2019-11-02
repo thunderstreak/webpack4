@@ -36,15 +36,26 @@ export default class Saga extends Component{
         this.props.dispatch({
             type: 'INCREMENT_ASYNC'
         })
+    };
+
+    onDecrementAsync = () => {
+        this.props.dispatch({
+            type: 'DECREMENT_ASYNC'
+        })
     }
 
     render(){
         const { value, dispatch } = this.props
-        const { onIncrement, onDecrement, onIncrementAsync } = this
+        const { onIncrement, onDecrement, onIncrementAsync, onDecrementAsync } = this
         return(
             <Fragment>
                 {value}
-                <Counter value={value} onIncrement={onIncrement} onDecrement={onDecrement} onIncrementAsync={onIncrementAsync}/>
+                <Counter
+                    value={value}
+                    onIncrement={onIncrement}
+                    onDecrement={onDecrement}
+                    onIncrementAsync={onIncrementAsync}
+                    onDecrementAsync={onDecrementAsync}/>
                 <Users/>
             </Fragment>
         )
